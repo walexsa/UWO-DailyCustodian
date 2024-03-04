@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UWO_DailyCustodian.View.CustodianFormPage"
+             Title="Custodial Check-Off">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label Text="Enter your name:"/>
+            <Entry Placeholder="First Name"/>
+            <Entry Placeholder="Last Name"/>
+
+            <Label Text="Building:"/>
+            <Entry Placeholder="Building Name"/>
+               
+            <Label Text="Please select everywhere you cleaned:"/>
+            <Label Text="Classrooms / Lounges / Computer Labs / Conference Rooms"/>
+            <Grid RowDefinitions="*,*,*,*,*,*" ColumnDefinitions="Auto,*">
+                <CheckBox x:Name="class_boards" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="0" Grid.Column="1" Text="Boards" VerticalOptions="Center" />
+
+                <CheckBox x:Name="class_garbage" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="1" Grid.Column="1" Text="Garbage" VerticalOptions="Center" />
+
+                <CheckBox x:Name="class_floors" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="2" Grid.Column="1" Text="Floors" VerticalOptions="Center" />
+
+                <CheckBox x:Name="class_dusting" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="3" Grid.Column="1" Text="Dusting" VerticalOptions="Center" />
+
+                <CheckBox x:Name="class_windows" Grid.Row="4" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="4" Grid.Column="1" Text="Windows" VerticalOptions="Center" />
+
+                <CheckBox x:Name="class_walls" Grid.Row="5" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="5" Grid.Column="1" Text="Walls" VerticalOptions="Center" />
+            </Grid>
+
+            <Label Text="Hallways"/>
+            <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="Auto,*">
+                <CheckBox x:Name="hall_floors" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="0" Grid.Column="1" Text="Floors" VerticalOptions="Center" />
+
+                <CheckBox x:Name="hall_garbage" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="1" Grid.Column="1" Text="Garbage" VerticalOptions="Center" />
+
+                <CheckBox x:Name="hall_dusting" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="2" Grid.Column="1" Text="Dusting" VerticalOptions="Center" />
+
+                <CheckBox x:Name="hall_walls" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="3" Grid.Column="1" Text="Walls" VerticalOptions="Center" />
+            </Grid>
+
+            <Label Text="Bathrooms / Showers"/>
+            <Grid RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*" ColumnDefinitions="Auto,*">
+                <CheckBox x:Name="bath_sinks" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="0" Grid.Column="1" Text="Sinks" VerticalOptions="Center" />
+
+                <CheckBox x:Name="bath_toilets" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="1" Grid.Column="1" Text="Toilets" VerticalOptions="Center" />
+
+                <CheckBox x:Name="bath_dusting" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="2" Grid.Column="1" Text="Dusting" VerticalOptions="Center" />
+
+                <CheckBox x:Name="bath_mirrors" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="3" Grid.Column="1" Text="Mirrors" VerticalOptions="Center" />
+
+                <CheckBox x:Name="bath_ledges" Grid.Row="4" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="4" Grid.Column="1" Text="Ledges" VerticalOptions="Center" />
+
+                <CheckBox x:Name="bath_dryers" Grid.Row="5" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="5" Grid.Column="1" Text="Hand Dryers/Towel Dispensers" VerticalOptions="Center" />
+                
+                <CheckBox x:Name="bath_vents" Grid.Row="6" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="6" Grid.Column="1" Text="Vents" VerticalOptions="Center" />
+
+                <CheckBox x:Name="bath_floors" Grid.Row="7" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="7" Grid.Column="1" Text="Floors" VerticalOptions="Center" />
+
+                <CheckBox x:Name="bath_walls" Grid.Row="8" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="8" Grid.Column="1" Text="Partitions/Walls" VerticalOptions="Center" />
+
+                <CheckBox x:Name="bath_curtains" Grid.Row="9" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="9" Grid.Column="1" Text="Shower Curtains" VerticalOptions="Center" />
+
+                <CheckBox x:Name="bath_shower" Grid.Row="10" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="10" Grid.Column="1" Text="Shower Walls" VerticalOptions="Center" />
+
+                <CheckBox x:Name="bath_supply" Grid.Row="11" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="12" Grid.Column="1" Text="Supply Stock" VerticalOptions="Center" />
+            </Grid>
+
+            <Label Text="Offices"/>
+            <Grid RowDefinitions="Auto" ColumnDefinitions="Auto,*">
+                <CheckBox x:Name="office_vacuum" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="0" Grid.Column="1" Text="Vacuuming" VerticalOptions="Center" />
+            </Grid>
+
+            <Label Text="Stairwells"/>
+            <Grid RowDefinitions="*,*,*" ColumnDefinitions="Auto,*">
+                <CheckBox x:Name="stair_floors" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="0" Grid.Column="1" Text="Floors" VerticalOptions="Center" />
+
+                <CheckBox x:Name="stair_railings" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="1" Grid.Column="1" Text="Railings" VerticalOptions="Center" />
+
+                <CheckBox x:Name="stair_walls" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="2" Grid.Column="1" Text="Walls" VerticalOptions="Center" />
+            </Grid>
+
+            <Label Text="Entrances"/>
+            <Grid RowDefinitions="*,*,*,*" ColumnDefinitions="Auto,*">
+                <CheckBox x:Name="entr_glass" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="0" Grid.Column="1" Text="Glass" VerticalOptions="Center" />
+
+                <CheckBox x:Name="entr_floors" Grid.Row="1" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="1" Grid.Column="1" Text="Floors" VerticalOptions="Center" />
+
+                <CheckBox x:Name="entr_rugs" Grid.Row="2" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="2" Grid.Column="1" Text="Rugs" VerticalOptions="Center" />
+
+                <CheckBox x:Name="entr_dusting" Grid.Row="3" Grid.Column="0" VerticalOptions="Center" />
+                <Label Grid.Row="3" Grid.Column="1" Text="Dusting" VerticalOptions="Center" />
+            </Grid>
+
+            <Button Text="Next" Clicked="NextButtonClicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

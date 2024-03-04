@@ -1,4 +1,6 @@
-﻿namespace UWO_DailyCustodian
+﻿using UWO_DailyCustodian.View;
+
+namespace UWO_DailyCustodian
 {
     public partial class App : Application
     {
@@ -6,7 +8,7 @@
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            MainPage = new View.TabbedPage();
         }
     }
 }

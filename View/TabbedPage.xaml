@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:UWO_DailyCustodian.View"
+            x:Class="UWO_DailyCustodian.View.TabbedPage">
+    <NavigationPage Title="Custodians" IconImageSource="cleaning.png">
+        <x:Arguments>
+            <local:CustodianFormPage/>
+        </x:Arguments>
+    </NavigationPage>
+    <!--<NavigationPage Title="Leads" IconImageSource="lead.png">
+        <x:Arguments>
+            <local:LeadFormPage />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="Supervisors" IconImageSource="supervisor.png">
+        <x:Arguments>
+            <local:SupervisorLoginPage />
+        </x:Arguments>
+    </NavigationPage>-->
+</TabbedPage>

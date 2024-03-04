@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:Class="UWO_DailyCustodian.View.CustodianPasscodePage"
+             Title="Confirm Submission">
+    <VerticalStackLayout 
+        BindingContext="{x:Static sys:DateTime.Now}" 
+        Spacing="15"
+        Padding="30,0"
+        VerticalOptions="CenterAndExpand">
+        
+        <Label 
+            Text="{Binding StringFormat='Please enter the custodian code for {0:D}:'}"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            FontSize="24"
+            HorizontalTextAlignment="Center"/>
+        
+        <Entry x:Name="code" Placeholder="Code"/>
+        
+        <Button Text="Submit" Clicked="SubmitButtonClicked"/>
+    </VerticalStackLayout>
+</ContentPage>
