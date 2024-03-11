@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UWO_DailyCustodian.View.ViewCodesPage"
+             Title="Codes">
+    <VerticalStackLayout>
+        <Label x:Name="todayLabel"/>
+        <Label Text="Custodian: 000000"/>
+        <Label Text="Lead: 000000"/>
+        <BoxView HeightRequest="10" Color="White"/>
+
+        <Label x:Name="tomorrowLabel"/>
+        <Label Text="Custodian: 000000"/>
+        <Label Text="Lead: 000000"/>
+        <BoxView HeightRequest="10" Color="White"/>
+
+        <Label x:Name="today2Label"/>
+        <Label Text="Custodian: 000000"/>
+        <Label Text="Lead: 000000"/>
+        <BoxView HeightRequest="10" Color="White"/>
+
+        <Label x:Name="today3Label"/>
+        <Label Text="Custodian: 000000"/>
+        <Label Text="Lead: 000000"/>
+        <BoxView HeightRequest="10" Color="White"/>
+
+        <Label x:Name="today4Label"/>
+        <Label Text="Custodian: 000000"/>
+        <Label Text="Lead: 000000"/>
+        <BoxView HeightRequest="10" Color="White"/>
+
+        <Label x:Name="today5Label"/>
+        <Label Text="Custodian: 000000"/>
+        <Label Text="Lead: 000000"/>
+        <BoxView HeightRequest="10" Color="White"/>
+
+        <Label x:Name="today6Label"/>
+        <Label Text="Custodian: 000000"/>
+        <Label Text="Lead: 000000"/>
+
+    </VerticalStackLayout>
+</ContentPage>

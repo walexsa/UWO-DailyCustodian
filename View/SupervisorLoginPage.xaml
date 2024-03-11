@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UWO_DailyCustodian.View.SupervisorLoginPage"
+             Title="Supervisor Login">
+    <VerticalStackLayout
+        Spacing="25"
+        Padding="30,0"
+        VerticalOptions="Center">
+
+        <Label
+            Text="UWO DailyCustodian"
+            HorizontalOptions="Center"
+            FontAttributes="Bold"
+            FontSize="Title"/>
+
+        <Entry
+            x:Name="usernameENT"
+            Placeholder="Username" />
+
+        <Entry
+            x:Name="passwordENT"
+            Placeholder="Password"
+            IsPassword="True"/>
+
+        <Button
+            Text="Login"
+            Clicked="OnLoginBtnClicked"/>
+
+        <Label HorizontalOptions="Center" >
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="FirstLoginTapped" />
+            </Label.GestureRecognizers>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="First Login?" TextColor="DodgerBlue" TextDecorations="Underline" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </VerticalStackLayout>
+</ContentPage>

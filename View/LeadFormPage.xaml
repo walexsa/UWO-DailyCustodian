@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UWO_DailyCustodian.View.LeadFormPage"
+             Title="Lead Evaluation Form">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label Text="Enter your name:"/>
+            <Entry Placeholder="First Name"/>
+            <Entry Placeholder="Last Name"/>
+
+            <Label Text="Building:"/>
+            <Entry Placeholder="Building Name"/>
+
+            <Grid RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*" ColumnDefinitions="*,*,*,*,*">
+                <Label Grid.Row="0" Grid.Column="1" Text="Good" HorizontalOptions="Center"/>
+                <Label Grid.Row="0" Grid.Column="2" Text="Satisfied" HorizontalOptions="Center"/>
+                <Label Grid.Row="0" Grid.Column="3" Text="Dissatisfied" HorizontalOptions="Center"/>
+                <Label Grid.Row="0" Grid.Column="4" Text="N/A" HorizontalOptions="Center"/>
+
+                <Label Grid.Row="1" Text="Classrooms" TextDecorations="Underline"/>
+
+                <Label Text="Boards" Grid.Row="2" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="2" Grid.Column="1" GroupName="class_boards" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="2" Grid.Column="2" GroupName="class_boards" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="2" Grid.Column="3" GroupName="class_boards" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="2" Grid.Column="4" GroupName="class_boards" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Garbage" Grid.Row="3" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="3" Grid.Column="1" GroupName="class_garbage" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="3" Grid.Column="2" GroupName="class_garbage" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="3" Grid.Column="3" GroupName="class_garbage" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="3" Grid.Column="4" GroupName="class_garbage" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Floors" Grid.Row="4" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="4" Grid.Column="1" GroupName="class_floors" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="4" Grid.Column="2" GroupName="class_floors" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="4" Grid.Column="3" GroupName="class_floors" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="4" Grid.Column="4" GroupName="class_floors" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Dusting" Grid.Row="5" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="5" Grid.Column="1" GroupName="class_dusting" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="5" Grid.Column="2" GroupName="class_dusting" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="5" Grid.Column="3" GroupName="class_dusting" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="5" Grid.Column="4" GroupName="class_dusting" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Windows" Grid.Row="6" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="6" Grid.Column="1" GroupName="class_windows" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="6" Grid.Column="2" GroupName="class_windows" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="6" Grid.Column="3" GroupName="class_windows" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="6" Grid.Column="4" GroupName="class_windows" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Walls" Grid.Row="7" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="7" Grid.Column="1" GroupName="class_walls" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="7" Grid.Column="2" GroupName="class_walls" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="7" Grid.Column="3" GroupName="class_walls" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="7" Grid.Column="4" GroupName="class_walls" ClassId="0" HorizontalOptions="Center"/>
+
+
+                <Label Grid.Row="8" Text="Hallways" TextDecorations="Underline"/>
+
+                <Label Text="Floors" Grid.Row="9" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="9" Grid.Column="1" GroupName="hall_floors" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="9" Grid.Column="2" GroupName="hall_floors" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="9" Grid.Column="3" GroupName="hall_floors" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="9" Grid.Column="4" GroupName="hall_floors" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Garbage" Grid.Row="10" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="10" Grid.Column="1" GroupName="hall_garbage" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="10" Grid.Column="2" GroupName="hall_garbage" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="10" Grid.Column="3" GroupName="hall_garbage" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="10" Grid.Column="4" GroupName="hall_garbage" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Dusting" Grid.Row="11" Grid.Column="0"  VerticalOptions="Center"/>
+                <RadioButton Grid.Row="11" Grid.Column="1" GroupName="hall_dusting" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="11" Grid.Column="2" GroupName="hall_dusting" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="11" Grid.Column="3" GroupName="hall_dusting" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="11" Grid.Column="4" GroupName="hall_dusting" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Walls" Grid.Row="12" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="12" Grid.Column="1" GroupName="hall_walls" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="12" Grid.Column="2" GroupName="hall_walls" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="12" Grid.Column="3" GroupName="hall_walls" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="12" Grid.Column="4" GroupName="hall_walls" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Grid.Row="13" Text="Bathrooms / Showers" TextDecorations="Underline"/>
+
+                <Label Text="Sinks" Grid.Row="14" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="14" Grid.Column="1" GroupName="bath_sinks" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="14" Grid.Column="2" GroupName="bath_sinks" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="14" Grid.Column="3" GroupName="bath_sinks" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="14" Grid.Column="4" GroupName="bath_sinks" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Toilets" Grid.Row="15" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="15" Grid.Column="1" GroupName="bath_toilets" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="15" Grid.Column="2" GroupName="bath_toilets" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="15" Grid.Column="3" GroupName="bath_toilets" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="15" Grid.Column="4" GroupName="bath_toilets" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Dusting" Grid.Row="16" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="16" Grid.Column="1" GroupName="bath_dusting" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="16" Grid.Column="2" GroupName="bath_dusting" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="16" Grid.Column="3" GroupName="bath_dusting" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="16" Grid.Column="4" GroupName="bath_dusting" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Mirrors" Grid.Row="17" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="17" Grid.Column="1" GroupName="bath_mirrors" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="17" Grid.Column="2" GroupName="bath_mirrors" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="17" Grid.Column="3" GroupName="bath_mirrors" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="17" Grid.Column="4" GroupName="bath_mirrors" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Ledges" Grid.Row="18" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="18" Grid.Column="1" GroupName="bath_ledges" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="18" Grid.Column="2" GroupName="bath_ledges" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="18" Grid.Column="3" GroupName="bath_ledges" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="18" Grid.Column="4" GroupName="bath_ledges" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Hand Dryers/Towel Dispensers" Grid.Row="19" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="19" Grid.Column="1" GroupName="bath_dryers" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="19" Grid.Column="2" GroupName="bath_dryers" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="19" Grid.Column="3" GroupName="bath_dryers" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="19" Grid.Column="4" GroupName="bath_dryers" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Vents" Grid.Row="20" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="20" Grid.Column="1" GroupName="bath_vents" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="20" Grid.Column="2" GroupName="bath_vents" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="20" Grid.Column="3" GroupName="bath_vents" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="20" Grid.Column="4" GroupName="bath_vents" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Floors" Grid.Row="21" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="21" Grid.Column="1" GroupName="bath_floors" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="21" Grid.Column="2" GroupName="bath_floors" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="21" Grid.Column="3" GroupName="bath_floors" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="21" Grid.Column="4" GroupName="bath_floors" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Partitions/Walls" Grid.Row="22" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="22" Grid.Column="1" GroupName="bath_walls" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="22" Grid.Column="2" GroupName="bath_walls" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="22" Grid.Column="3" GroupName="bath_walls" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="22" Grid.Column="4" GroupName="bath_walls" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Shower Curtains" Grid.Row="23" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="23" Grid.Column="1" GroupName="bath_curtains" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="23" Grid.Column="2" GroupName="bath_curtains" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="23" Grid.Column="3" GroupName="bath_curtains" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="23" Grid.Column="4" GroupName="bath_curtains" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Shower Walls" Grid.Row="24" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="24" Grid.Column="1" GroupName="bath_shower" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="24" Grid.Column="2" GroupName="bath_shower" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="24" Grid.Column="3" GroupName="bath_shower" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="24" Grid.Column="4" GroupName="bath_shower" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Supply Stock" Grid.Row="25" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="25" Grid.Column="1" GroupName="bath_supply" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="25" Grid.Column="2" GroupName="bath_supply" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="25" Grid.Column="3" GroupName="bath_supply" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="25" Grid.Column="4" GroupName="bath_supply" ClassId="0" HorizontalOptions="Center"/>
+
+
+                <Label Grid.Row="26" Text="Offices" TextDecorations="Underline"/>
+
+                <Label Text="Vacuuming" Grid.Row="27" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="27" Grid.Column="1" GroupName="office_vacuum" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="27" Grid.Column="2" GroupName="office_vacuum" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="27" Grid.Column="3" GroupName="office_vacuum" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="27" Grid.Column="4" GroupName="office_vacuum" ClassId="0" HorizontalOptions="Center"/>
+
+
+                <Label Grid.Row="28" Text="Stairwells" TextDecorations="Underline"/>
+
+                <Label Text="Floors" Grid.Row="29" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="29" Grid.Column="1" GroupName="stair_floors" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="29" Grid.Column="2" GroupName="stair_floors" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="29" Grid.Column="3" GroupName="stair_floors" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="29" Grid.Column="4" GroupName="stair_floors" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Railings" Grid.Row="30" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="30" Grid.Column="1" GroupName="stair_railings" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="30" Grid.Column="2" GroupName="stair_railings" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="30" Grid.Column="3" GroupName="stair_railings" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="30" Grid.Column="4" GroupName="stair_railings" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Walls" Grid.Row="31" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="31" Grid.Column="1" GroupName="stair_walls" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="31" Grid.Column="2" GroupName="stair_walls" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="31" Grid.Column="3" GroupName="stair_walls" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="31" Grid.Column="4" GroupName="stair_walls" ClassId="0" HorizontalOptions="Center"/>
+
+
+                <Label Grid.Row="32" Text="Entrances" TextDecorations="Underline"/>
+
+                <Label Text="Glass" Grid.Row="33" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="33" Grid.Column="1" GroupName="entr_glass" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="33" Grid.Column="2" GroupName="entr_glass" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="33" Grid.Column="3" GroupName="entr_glass" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="33" Grid.Column="4" GroupName="entr_glass" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Floors" Grid.Row="34" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="34" Grid.Column="1" GroupName="entr_floors" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="34" Grid.Column="2" GroupName="entr_floors" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="34" Grid.Column="3" GroupName="entr_floors" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="34" Grid.Column="4" GroupName="entr_floors" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Rugs" Grid.Row="35" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="35" Grid.Column="1" GroupName="entr_rugs" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="35" Grid.Column="2" GroupName="entr_rugs" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="35" Grid.Column="3" GroupName="entr_rugs" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="35" Grid.Column="4" GroupName="entr_rugs" ClassId="0" HorizontalOptions="Center"/>
+
+                <Label Text="Dusting" Grid.Row="36" Grid.Column="0" VerticalOptions="Center"/>
+                <RadioButton Grid.Row="36" Grid.Column="1" GroupName="entr_dusting" ClassId="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="36" Grid.Column="2" GroupName="entr_dusting" ClassId="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="36" Grid.Column="3" GroupName="entr_dusting" ClassId="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="36" Grid.Column="4" GroupName="entr_dusting" ClassId="0" HorizontalOptions="Center"/>
+            </Grid>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Remarks: " />
+                <Entry x:Name="remarks"/>
+            </StackLayout>
+
+            <Button Text="Select Photos" Clicked="SelectPhotosClicked"/>
+
+            <Button Text="Next" Clicked="NextButtonClicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

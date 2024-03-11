@@ -13,7 +13,7 @@
             <Entry Placeholder="Building Name"/>
                
             <Label Text="Please select everywhere you cleaned:"/>
-            <Label Text="Classrooms / Lounges / Computer Labs / Conference Rooms"/>
+            <Label Text="Classrooms"/>
             <Grid RowDefinitions="*,*,*,*,*,*" ColumnDefinitions="Auto,*">
                 <CheckBox x:Name="class_boards" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" />
                 <Label Grid.Row="0" Grid.Column="1" Text="Boards" VerticalOptions="Center" />

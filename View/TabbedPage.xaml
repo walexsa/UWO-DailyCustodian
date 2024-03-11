@@ -8,7 +8,7 @@
             <local:CustodianFormPage/>
         </x:Arguments>
     </NavigationPage>
-    <!--<NavigationPage Title="Leads" IconImageSource="lead.png">
+    <NavigationPage Title="Leads" IconImageSource="lead.png">
         <x:Arguments>
             <local:LeadFormPage />
         </x:Arguments>
@@ -17,5 +17,5 @@
         <x:Arguments>
             <local:SupervisorLoginPage />
         </x:Arguments>
-    </NavigationPage>-->
+    </NavigationPage>
 </TabbedPage>
