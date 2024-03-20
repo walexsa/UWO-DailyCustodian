@@ -60,10 +60,8 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Model\" />
+		<PackageReference Include="Npgsql" Version="8.0.2" />
+		<PackageReference Include="supabase-csharp" Version="0.16.1" />
 	</ItemGroup>
 
 	<ItemGroup>

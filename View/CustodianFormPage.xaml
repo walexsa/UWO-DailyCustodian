@@ -6,11 +6,11 @@
     <ScrollView>
         <VerticalStackLayout>
             <Label Text="Enter your name:"/>
-            <Entry Placeholder="First Name"/>
-            <Entry Placeholder="Last Name"/>
+            <Entry Placeholder="First Name" x:Name="firstName"/>
+            <Entry Placeholder="Last Name" x:Name="lastName"/>
 
             <Label Text="Building:"/>
-            <Entry Placeholder="Building Name"/>
+            <Entry Placeholder="Building Name" x:Name="building"/>
                
             <Label Text="Please select everywhere you cleaned:"/>
             <Label Text="Classrooms"/>

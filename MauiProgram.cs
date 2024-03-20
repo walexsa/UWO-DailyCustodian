@@ -1,9 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
+using Supabase;
+using UWO_DailyCustodian.Model;
 
 namespace UWO_DailyCustodian
 {
     public static class MauiProgram
     {
+        public static IBusinessLogic BusinessLogic = new BusinessLogic();
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
@@ -16,7 +19,7 @@ namespace UWO_DailyCustodian
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
