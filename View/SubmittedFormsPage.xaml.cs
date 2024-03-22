@@ -10,38 +10,23 @@ public partial class SubmittedFormsPage : ContentPage
 {
     private ObservableCollection<CustodianForm> _forms;
 
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public ObservableCollection<CustodianForm> Forms
-    {
-        get { return _forms; }
-        set
-        {
-            _forms = value;
-            OnPropertyChanged();
-        }
-    }
+    public ObservableCollection<CustodianForm> Forms;
+    private IBusinessLogic businessLogic;
     public SubmittedFormsPage()
 	{
 		InitializeComponent();
 
-        IBusinessLogic businessLogic = new BusinessLogic();
-
-        Forms = new ObservableCollection<CustodianForm>();
-        InitializeFormsAsync();
-
         this.BindingContext = this;
+
+        //Forms = businessLogic.CustodianForms.Result;
+        InitializeFormsAsync();
     }
 
     private async Task InitializeFormsAsync()
     {
-        IBusinessLogic businessLogic = new BusinessLogic();
+        businessLogic = new BusinessLogic();
         Forms = await businessLogic.CustodianForms;
-    }
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        FormsCV.ItemsSource = Forms;
     }
 
     async void SubmitButtonClicked(object sender, EventArgs e)

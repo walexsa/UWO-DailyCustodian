@@ -54,6 +54,8 @@ namespace UWO_DailyCustodian.Model
                     return false;
                 }
 
+                form.AddDate(form, DateTime.Now);
+
                 var response = await supabase
                     .From<CustodianForm>()
                     .Insert(form);

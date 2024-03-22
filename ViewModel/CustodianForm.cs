@@ -22,7 +22,7 @@ namespace UWO_DailyCustodian.ViewModel
         [Column("building")]
         public string Building { get; set; }
         [Column("date")]
-        public DateTime Date { get { return DateTime.Now; } }
+        public DateTime Date { get; set; }
         [Column("class_boards")]
         public bool ClassBoards { get; set; }
         [Column("class_garbage")]
@@ -122,6 +122,10 @@ namespace UWO_DailyCustodian.ViewModel
             EntrDusting = entrDusting;
         }
 
+        public void AddDate(CustodianForm form, DateTime date)
+        {
+            form.Date = date;
+        }
         public void AddId(CustodianForm form, int id)
         {
             form.Id = id;
