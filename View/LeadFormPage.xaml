@@ -6,11 +6,11 @@
     <ScrollView>
         <VerticalStackLayout>
             <Label Text="Enter your name:"/>
-            <Entry Placeholder="First Name"/>
-            <Entry Placeholder="Last Name"/>
+            <Entry Placeholder="First Name" x:Name="firstName"/>
+            <Entry Placeholder="Last Name" x:Name="lastName"/>
 
             <Label Text="Building:"/>
-            <Entry Placeholder="Building Name"/>
+            <Entry Placeholder="Building Name" x:Name="building"/>
 
             <Grid RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*" ColumnDefinitions="*,*,*,*,*">
                 <Label Grid.Row="0" Grid.Column="1" Text="Good" HorizontalOptions="Center"/>
@@ -21,10 +21,10 @@
                 <Label Grid.Row="1" Text="Classrooms" TextDecorations="Underline"/>
 
                 <Label Text="Boards" Grid.Row="2" Grid.Column="0" VerticalOptions="Center"/>
-                <RadioButton Grid.Row="2" Grid.Column="1" GroupName="class_boards" ClassId="3" HorizontalOptions="Center"/>
-                <RadioButton Grid.Row="2" Grid.Column="2" GroupName="class_boards" ClassId="2" HorizontalOptions="Center"/>
-                <RadioButton Grid.Row="2" Grid.Column="3" GroupName="class_boards" ClassId="1" HorizontalOptions="Center"/>
-                <RadioButton Grid.Row="2" Grid.Column="4" GroupName="class_boards" ClassId="0" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="2" Grid.Column="1" GroupName="class_boards" Value="3" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="2" Grid.Column="2" GroupName="class_boards" Value="2" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="2" Grid.Column="3" GroupName="class_boards" Value="1" HorizontalOptions="Center"/>
+                <RadioButton Grid.Row="2" Grid.Column="4" GroupName="class_boards" Value="0" HorizontalOptions="Center"/>
 
                 <Label Text="Garbage" Grid.Row="3" Grid.Column="0" VerticalOptions="Center"/>
                 <RadioButton Grid.Row="3" Grid.Column="1" GroupName="class_garbage" ClassId="3" HorizontalOptions="Center"/>

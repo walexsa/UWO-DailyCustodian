@@ -18,6 +18,7 @@ namespace UWO_DailyCustodian.Model
         private const string ApiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFoYW9tb2t6bGJ5YXllcGRlaHZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDgyMDE3MzUsImV4cCI6MjAyMzc3NzczNX0.U8rh_R9musw71qqB9cId7uEosaiyZVcm9jqElnZUSag";
 
         ObservableCollection<CustodianForm> custodianForms = new();
+        ObservableCollection<LeadForm> leadForms = new();
 
         private Supabase.Client supabase;
         public Database() 
@@ -43,6 +44,13 @@ namespace UWO_DailyCustodian.Model
             custodianForms = new ObservableCollection<CustodianForm>(result.Models);
             return custodianForms;
         }
+        public async Task<ObservableCollection<LeadForm>> SelectAllLeadForms()
+        {
+            leadForms.Clear();
+            var result = await supabase.From<LeadForm>().Get();
+            leadForms = new ObservableCollection<LeadForm>(result.Models);
+            return leadForms;
+        }
 
         public async Task<bool> InsertCustodianFormAsync(CustodianForm form)
         {
@@ -67,6 +75,38 @@ namespace UWO_DailyCustodian.Model
                 }
 
                 await SelectAllCustodianForms();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Insert failed, {e}");
+                return false;
+            }
+        }
+        public async Task<bool> InsertLeadFormAsync(LeadForm form)
+        {
+            try
+            {
+                if (supabase == null)
+                {
+                    Console.WriteLine("supabaseClient is null");
+                    return false;
+                }
+
+                form.AddDate(form, DateTime.Now);
+
+                var response = await supabase
+                    .From<LeadForm>()
+                    .Insert(form);
+
+                if (response == null)
+                {
+                    Console.WriteLine($"Insert failed, {response}");
+                    return false;
+                }
+
+                await SelectAllLeadForms();
 
                 return true;
             }

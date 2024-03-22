@@ -18,7 +18,6 @@ public partial class SubmittedFormsPage : ContentPage
 
         this.BindingContext = this;
 
-        //Forms = businessLogic.CustodianForms.Result;
         InitializeFormsAsync();
     }
 

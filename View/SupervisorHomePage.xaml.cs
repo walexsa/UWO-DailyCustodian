@@ -10,9 +10,9 @@ public partial class SupervisorHomePage : ContentPage
 	{
 		InitializeComponent();
 
-		Forms.Add(new LeadForm { Building = "Building", LeadCustodianName = "Lead Custodian Name", Date = "Date" });
-        Forms.Add(new LeadForm { Building = "Building", LeadCustodianName = "Lead Custodian Name", Date = "Date" });
-        Forms.Add(new LeadForm { Building = "Building", LeadCustodianName = "Lead Custodian Name", Date = "Date" });
+		//Forms.Add(new LeadForm { Building = "Building", LeadCustodianName = "Lead Custodian Name", Date = "Date" });
+        //Forms.Add(new LeadForm { Building = "Building", LeadCustodianName = "Lead Custodian Name", Date = "Date" });
+        //Forms.Add(new LeadForm { Building = "Building", LeadCustodianName = "Lead Custodian Name", Date = "Date" });
 
         this.BindingContext = this;
     }

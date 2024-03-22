@@ -11,6 +11,8 @@ namespace UWO_DailyCustodian.Model
     public interface IDatabase
     { 
         public Task<ObservableCollection<CustodianForm>> SelectAllCustodianForms();
+        public Task<ObservableCollection<LeadForm>> SelectAllLeadForms();
         public Task<bool> InsertCustodianFormAsync(CustodianForm form);
+        public Task<bool> InsertLeadFormAsync(LeadForm form);
     }
 }
