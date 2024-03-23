@@ -3,6 +3,7 @@ using Postgrest.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -83,9 +84,11 @@ public class LeadForm : BaseModel
     public int EntrRugs { get; set; }
     [Column("entr_dusting")]
     public int EntrDusting { get; set; }
+    [Column("remarks")]
+    public string Remarks { get; set; }
 
     public LeadForm() { }
-    public LeadForm(string firstName, string lastName, string building, int classBoards, int classGarbage, int classFloors, int classDusting, int classWindows, int classWalls, int hallFloors, int hallGarbage, int hallDusting, int hallWalls, int bathSinks, int bathToilets, int bathDusting, int bathMirrors, int bathLedges, int bathDryers, int bathVents, int bathFloors, int bathWalls, int bathCurtains, int bathShower, int bathSupply, int officeVacuum, int stairFloors, int stairRailings, int stairWalls, int entrGlass, int entrFloors, int entrRugs, int entrDusting)
+    public LeadForm(string firstName, string lastName, string building, int classBoards, int classGarbage, int classFloors, int classDusting, int classWindows, int classWalls, int hallFloors, int hallGarbage, int hallDusting, int hallWalls, int bathSinks, int bathToilets, int bathDusting, int bathMirrors, int bathLedges, int bathDryers, int bathVents, int bathFloors, int bathWalls, int bathCurtains, int bathShower, int bathSupply, int officeVacuum, int stairFloors, int stairRailings, int stairWalls, int entrGlass, int entrFloors, int entrRugs, int entrDusting, string remarks)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -120,6 +123,7 @@ public class LeadForm : BaseModel
         EntrFloors = entrFloors;
         EntrRugs = entrRugs;
         EntrDusting = entrDusting;
+        Remarks = remarks;
     }
 
     public void AddDate(LeadForm form, DateTime date)
