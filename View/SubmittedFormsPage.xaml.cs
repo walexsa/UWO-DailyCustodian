@@ -8,8 +8,6 @@ namespace UWO_DailyCustodian.View;
 
 public partial class SubmittedFormsPage : ContentPage
 {
-    private ObservableCollection<CustodianForm> _forms;
-
     public ObservableCollection<CustodianForm> Forms;
     private IBusinessLogic businessLogic;
     public SubmittedFormsPage()

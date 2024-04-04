@@ -10,7 +10,7 @@
         <!--Add selection options to download and delete-->
         
         <Grid>
-            <CollectionView Grid.Row="0" ItemsSource="{Binding Forms}" SelectionMode="Multiple">
+            <CollectionView x:Name="FormsCV" Grid.Row="0" ItemsSource="{Binding Forms}" SelectionMode="Multiple">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Margin="10" Padding="0" BackgroundColor="LightGray" CornerRadius="5">
