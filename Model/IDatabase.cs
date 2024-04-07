@@ -13,6 +13,7 @@ namespace UWO_DailyCustodian.Model
         public Task<ObservableCollection<CustodianForm>> SelectAllCustodianForms();
         public Task<ObservableCollection<LeadForm>> SelectAllLeadForms();
         public Task<bool> InsertCustodianFormAsync(CustodianForm form);
-        public Task<bool> InsertLeadFormAsync(LeadForm form);
+        public Task<int> InsertLeadFormAsync(LeadForm form);
+        public Task<bool> InsertFormRelation(int leadFormId, int custodianFormId);
     }
 }

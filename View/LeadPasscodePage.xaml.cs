@@ -15,14 +15,6 @@ public partial class LeadPasscodePage : ContentPage
 
     private async void NextButtonClicked(object sender, EventArgs e)
     {
-        bool result = await MauiProgram.BusinessLogic.InsertLeadForm(Form);
-
-        if (result == false)
-        {
-            await DisplayAlert("Oops!", "Form was not submitted, please try again.", "OK");
-            return;
-        }
-
-        await Navigation.PushAsync(new SubmittedFormsPage());
+        await Navigation.PushAsync(new SubmittedFormsPage(Form));
     }
 }

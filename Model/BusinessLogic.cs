@@ -33,12 +33,23 @@ namespace UWO_DailyCustodian.Model
                 return false;
             }
         }
-        public async Task<bool> InsertLeadForm(LeadForm form)
+        public async Task<int> InsertLeadForm(LeadForm form)
         {
             try
             {
-                await Database.InsertLeadFormAsync(form);
-                return true;
+                return await Database.InsertLeadFormAsync(form);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Insert failed: {ex.Message}");
+                return -1;
+            }
+        }
+        public async Task<bool> InsertFormRelation(int leadFormId, int custodianFormId)
+        {
+            try
+            {
+                return await Database.InsertFormRelation(leadFormId, custodianFormId);
             }
             catch (Exception ex)
             {

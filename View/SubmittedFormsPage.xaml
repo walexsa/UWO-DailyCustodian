@@ -8,14 +8,15 @@
             Text="Select all custodians whose work you are evaluating:"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        
-        <!--Add selection and filtering-->
 
         <Grid>
             <CollectionView x:Name="FormsCV" Grid.Row="0" ItemsSource="{Binding Forms}" SelectionMode="Multiple">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Margin="10" Padding="0" BackgroundColor="LightGray" CornerRadius="5">
+                            <!--<Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="FrameTapped" />
+                            </Frame.GestureRecognizers>-->
                             <StackLayout Padding="10,0,0,0">
                                 <Label Text="{Binding Building}" />
                                 <Label Text="{Binding CustodianName}" />

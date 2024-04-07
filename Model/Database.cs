@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 using Npgsql;
 using Supabase;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using UWO_DailyCustodian.ViewModel;
@@ -84,7 +86,41 @@ namespace UWO_DailyCustodian.Model
                 return false;
             }
         }
-        public async Task<bool> InsertLeadFormAsync(LeadForm form)
+        public async Task<int> InsertLeadFormAsync(LeadForm form)
+        {
+            try
+            {
+                if (supabase == null)
+                {
+                    Console.WriteLine("supabaseClient is null");
+                    return -1;
+                }
+
+                form.AddDate(form, DateTime.Now);
+
+                var response = await supabase
+                    .From<LeadForm>()
+                    .Insert(form, new Postgrest.QueryOptions { Returning = Postgrest.QueryOptions.ReturnType.Representation });
+
+                if (response == null)
+                {
+                    Console.WriteLine($"Insert failed, {response}");
+                    return -1;
+                }
+
+                var id = response.Model.Id;
+
+                await SelectAllLeadForms();
+
+                return id;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Insert failed, {e}");
+                return -1;
+            }
+        }
+        public async Task<bool> InsertFormRelation(int leadFormId, int custodianFormId)
         {
             try
             {
@@ -94,11 +130,9 @@ namespace UWO_DailyCustodian.Model
                     return false;
                 }
 
-                form.AddDate(form, DateTime.Now);
-
                 var response = await supabase
-                    .From<LeadForm>()
-                    .Insert(form);
+                    .From<FormRelation>()
+                    .Insert(new FormRelation(leadFormId, custodianFormId));
 
                 if (response == null)
                 {
@@ -106,10 +140,8 @@ namespace UWO_DailyCustodian.Model
                     return false;
                 }
 
-                await SelectAllLeadForms();
-
                 return true;
-            }
+            } 
             catch (Exception e)
             {
                 Console.WriteLine($"Insert failed, {e}");
