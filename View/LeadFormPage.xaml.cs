@@ -84,9 +84,17 @@ public partial class LeadFormPage : ContentPage
         }
     }
 
-    void SelectPhotosClicked(object sender, EventArgs e)
+    async void SelectPhotosClicked(object sender, EventArgs e)
     {
-        
+        if (MediaPicker.Default.IsCaptureSupported)
+        {
+            FileResult photo = await MediaPicker.Default.PickPhotoAsync();
+
+            if (photo != null)
+            {
+                // save photo in db
+            }
+        }
     }
 
     async void NextButtonClicked(object sender, EventArgs e)

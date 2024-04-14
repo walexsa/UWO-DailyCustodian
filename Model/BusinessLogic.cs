@@ -20,12 +20,27 @@ namespace UWO_DailyCustodian.Model
             Database = new Database();
         }
 
+        public async Task<string> SignUp(string email, string password)
+        {
+            //UserEmail user = await Database.SelectUserEmail(email);
+            //if (user == null)
+            //{
+            //    return "EmailNotRecognized";
+            //}
+
+            //string role = user.Role;
+            return await Database.SignUp(email, password, "bruh");
+        }
+        public async Task<bool> SignIn(string email, string password)
+        {
+            return await Database.SignIn(email, password);
+        }
+
         public async Task<bool> InsertCustodianForm(CustodianForm form)
         {
             try
             {
-                await Database.InsertCustodianFormAsync(form);
-                return true;
+                return await Database.InsertCustodianFormAsync(form);
             }
             catch (Exception ex)
             {

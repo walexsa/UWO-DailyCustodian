@@ -2,6 +2,8 @@
 using Newtonsoft.Json.Linq;
 using Npgsql;
 using Supabase;
+using Supabase.Gotrue;
+using Supabase.Gotrue.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,6 +25,7 @@ namespace UWO_DailyCustodian.Model
         ObservableCollection<LeadForm> leadForms = new();
 
         private Supabase.Client supabase;
+        private Session session;
         public Database() 
         {
             Initialize();
@@ -54,11 +57,44 @@ namespace UWO_DailyCustodian.Model
             return leadForms;
         }
 
+        public async Task<UserEmail> SelectUserEmail(string email)
+        {
+            var result = await supabase.From<UserEmail>().Get();
+            List<UserEmail> users = new List<UserEmail>(result.Models);
+            return users.Find(x => x.Email == email);
+        }
+        public async Task<string> SignUp(string email, string password, string role)
+        {
+            try
+            {
+                var session = await supabase.Auth.SignUp(email, password);
+                if (session == null)
+                {
+
+                }
+                return "testing";
+            } 
+            catch (GotrueException e)
+            {
+                JObject errorJson = JObject.Parse(e.Message);
+                string errorMessage = errorJson["msg"].ToString();
+                return errorMessage;
+            }
+        }
+        public async Task<bool> SignIn(string email, string password)
+        {
+            session = await supabase.Auth.SignIn(email, password);
+            if (session == null)
+            {
+                return false;
+            }
+            return true;
+        }
         public async Task<bool> InsertCustodianFormAsync(CustodianForm form)
         {
             try
             {
-                if (supabase == null)
+                if (supabase == null || session == null)
                 {
                     Console.WriteLine("supabaseClient is null");
                     return false;

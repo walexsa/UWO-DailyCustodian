@@ -1,14 +1,32 @@
+using UWO_DailyCustodian.Model;
 namespace UWO_DailyCustodian.View;
 
 public partial class FirstLoginPage : ContentPage
 {
-	public FirstLoginPage()
+    private IBusinessLogic businessLogic;
+    public FirstLoginPage()
 	{
 		InitializeComponent();
-	}
+        businessLogic = new BusinessLogic();
+    }
 
-    async void OnLoginBtnClicked(object sender, EventArgs e)
+    async void OnSignUpBtnClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new SupervisorHomePage());
+        if (!passwordENT.Text.Equals(password2ENT.Text))
+        {
+            await DisplayAlert("Passwords do not match", "Please try again.", "OK");
+            return;
+        }
+
+        var response = await businessLogic.SignUp(emailENT.Text, passwordENT.Text);
+
+        if (!response.Equals("testing"))
+        {
+            await DisplayAlert("Something went wrong.", "Please try again later.", "OK");
+            return;
+        }
+
+        await DisplayAlert("Sign up successful", "Please check your email to confirm your account.", "OK");
+        await Navigation.PopAsync();
     }
 }

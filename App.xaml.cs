@@ -8,7 +8,8 @@ namespace UWO_DailyCustodian
         {
             InitializeComponent();
 
-            MainPage = new View.TabbedPage();
+            MainPage = new NavigationPage(new LoginPage());
+            //MainPage = new View.TabbedPage();
         }
     }
 }

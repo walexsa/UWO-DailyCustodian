@@ -9,8 +9,8 @@
         VerticalOptions="Center">
 
         <Entry
-            x:Name="usernameENT"
-            Placeholder="Username" />
+            x:Name="emailENT"
+            Placeholder="Email" />
 
         <Entry
             x:Name="passwordENT"
@@ -23,8 +23,8 @@
             IsPassword="True"/>
 
         <Button
-            Text="Login"
-            Clicked="OnLoginBtnClicked"
+            Text="Sign Up"
+            Clicked="OnSignUpBtnClicked"
             HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>
