@@ -18,6 +18,7 @@ namespace UWO_DailyCustodian.Model
 {
     public class Database : IDatabase
     {
+        private static Database _instance;
         private const string SupabaseUrl = "https://qhaomokzlbyayepdehvy.supabase.co";
         private const string ApiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFoYW9tb2t6bGJ5YXllcGRlaHZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDgyMDE3MzUsImV4cCI6MjAyMzc3NzczNX0.U8rh_R9musw71qqB9cId7uEosaiyZVcm9jqElnZUSag";
 
@@ -26,7 +27,7 @@ namespace UWO_DailyCustodian.Model
 
         private Supabase.Client supabase;
         private Session session;
-        public Database() 
+        private Database() 
         {
             Initialize();
         }
@@ -40,6 +41,21 @@ namespace UWO_DailyCustodian.Model
             };
             supabase = new Supabase.Client(SupabaseUrl, ApiKey, options);
             await supabase.InitializeAsync();
+        }
+
+        public static IDatabase Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    lock (typeof(Database))
+                    {
+                        _instance = new Database();
+                    }
+                }
+                return _instance;
+            }
         }
 
         public async Task<ObservableCollection<CustodianForm>> SelectAllCustodianForms()
@@ -57,11 +73,11 @@ namespace UWO_DailyCustodian.Model
             return leadForms;
         }
 
-        public async Task<UserEmail> SelectUserEmail(string email)
+        private async Task<UserEmail> SelectUserEmail(string email)
         {
             var result = await supabase.From<UserEmail>().Get();
             List<UserEmail> users = new List<UserEmail>(result.Models);
-            return users.Find(x => x.Email == email);
+            return users.Find(x => x.Email.Equals(email));
         }
         public async Task<string> SignUp(string email, string password, string role)
         {
@@ -88,13 +104,45 @@ namespace UWO_DailyCustodian.Model
             {
                 return false;
             }
+
+            await supabase.Auth.SetSession(session.AccessToken, session.RefreshToken);
+
+            var userProfile = supabase.Auth.CurrentUser;
+            var userRole = userProfile.Role;
+            // TODO - test what role comes back if not authenticated
+            if (userRole.Equals("authenticated") && !userProfile.UserMetadata.ContainsKey("job")) {
+                UserEmail user = await SelectUserEmail(email);
+                string newRole = user.Role;
+
+                if (userProfile == null)
+                {
+                    Console.WriteLine("Failed to retrieve user profile.");
+                    return false;
+                }
+
+                var attr = new UserAttributes
+                {
+                    Data = new Dictionary<string, object> { { "job", newRole } }
+                };
+
+                // adds a value to data dictionary, not role column...
+                // TODO
+                var updateResponse = await supabase.Auth.Update(attr);
+
+                if (updateResponse == null)
+                {
+                    Console.WriteLine("Failed to update user profile.");
+                    return false;
+                }
+            }
+
             return true;
         }
         public async Task<bool> InsertCustodianFormAsync(CustodianForm form)
         {
             try
             {
-                if (supabase == null || session == null)
+                if (supabase == null)
                 {
                     Console.WriteLine("supabaseClient is null");
                     return false;
@@ -106,9 +154,10 @@ namespace UWO_DailyCustodian.Model
                     .From<CustodianForm>()
                     .Insert(form);
 
-                if (response == null)
+                int statusCode = (int)response.ResponseMessage.StatusCode;
+                if (statusCode >= 400 && statusCode <= 599)
                 {
-                    Console.WriteLine($"Insert failed, {response}");
+                    Console.WriteLine($"Insert failed, {response.ResponseMessage.Content}");
                     return false;
                 }
 
@@ -138,9 +187,10 @@ namespace UWO_DailyCustodian.Model
                     .From<LeadForm>()
                     .Insert(form, new Postgrest.QueryOptions { Returning = Postgrest.QueryOptions.ReturnType.Representation });
 
-                if (response == null)
+                int statusCode = (int)response.ResponseMessage.StatusCode;
+                if (statusCode >= 400 && statusCode <= 599)
                 {
-                    Console.WriteLine($"Insert failed, {response}");
+                    Console.WriteLine($"Insert failed, {response.ResponseMessage.Content}");
                     return -1;
                 }
 
@@ -170,9 +220,10 @@ namespace UWO_DailyCustodian.Model
                     .From<FormRelation>()
                     .Insert(new FormRelation(leadFormId, custodianFormId));
 
-                if (response == null)
+                int statusCode = (int)response.ResponseMessage.StatusCode;
+                if (statusCode >= 400 && statusCode <= 599)
                 {
-                    Console.WriteLine($"Insert failed, {response}");
+                    Console.WriteLine($"Insert failed, {response.ResponseMessage.Content}");
                     return false;
                 }
 

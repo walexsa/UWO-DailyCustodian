@@ -9,7 +9,7 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        <Grid>
+        <Grid HeightRequest="400" WidthRequest="300">
             <CollectionView x:Name="FormsCV" Grid.Row="0" ItemsSource="{Binding Forms}" SelectionMode="Multiple">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -28,6 +28,6 @@
             </CollectionView>
         </Grid>
 
-        <Button Text="Submit" Clicked="SubmitButtonClicked"/>
+        <Button Text="Submit" Clicked="SubmitButtonClicked" VerticalOptions="End"/>
     </VerticalStackLayout>
 </ContentPage>

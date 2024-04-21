@@ -17,7 +17,7 @@ namespace UWO_DailyCustodian.Model
 
         public BusinessLogic()
         {
-            Database = new Database();
+            Database = UWO_DailyCustodian.Model.Database.Instance;
         }
 
         public async Task<string> SignUp(string email, string password)

@@ -4,7 +4,7 @@
              x:Class="UWO_DailyCustodian.View.LeadFormPage"
              Title="Lead Evaluation Form">
     <ScrollView>
-        <VerticalStackLayout>
+        <VerticalStackLayout Padding="20">
             <Label Text="Enter your name:"/>
             <Entry Placeholder="First Name" x:Name="firstName"/>
             <Entry Placeholder="Last Name" x:Name="lastName"/>

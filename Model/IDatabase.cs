@@ -9,10 +9,9 @@ using UWO_DailyCustodian.ViewModel;
 namespace UWO_DailyCustodian.Model
 {
     public interface IDatabase
-    { 
+    {
         public Task<ObservableCollection<CustodianForm>> SelectAllCustodianForms();
         public Task<ObservableCollection<LeadForm>> SelectAllLeadForms();
-        public Task<UserEmail> SelectUserEmail(string email);
         public Task<string> SignUp(string email, string password, string role);
         public Task<bool> SignIn(string email, string password);
         public Task<bool> InsertCustodianFormAsync(CustodianForm form);
