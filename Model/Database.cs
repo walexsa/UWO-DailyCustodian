@@ -1,17 +1,8 @@
-﻿using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Linq;
-using Npgsql;
+﻿using Newtonsoft.Json.Linq;
 using Supabase;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Common;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
 using UWO_DailyCustodian.ViewModel;
 
 namespace UWO_DailyCustodian.Model
@@ -125,7 +116,7 @@ namespace UWO_DailyCustodian.Model
                     Data = new Dictionary<string, object> { { "job", newRole } }
                 };
 
-                // adds a value to data dictionary, not role column...
+                // adds a value to data dictionary, not role column.. 
                 // TODO
                 var updateResponse = await supabase.Auth.Update(attr);
 
@@ -234,6 +225,23 @@ namespace UWO_DailyCustodian.Model
                 Console.WriteLine($"Insert failed, {e}");
                 return false;
             }
+        }
+
+        public async Task<bool> InsertPhoto(byte[] fileData, string filePath)
+        {
+            if (fileData != null)
+            {
+                var bucketName = "photos";
+                await supabase.Storage.From(bucketName).Upload(fileData, filePath);
+            }
+            return true;
+        }
+
+        public async Task<byte[]> DownloadImageFromSupabaseAsync(string filePath)
+        {
+            var response = await supabase.Storage.From("photos").Download(filePath, null);
+
+            return response;
         }
     }
 }

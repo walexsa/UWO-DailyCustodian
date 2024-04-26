@@ -15,6 +15,6 @@ public partial class LeadPasscodePage : ContentPage
 
     private async void NextButtonClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new SubmittedFormsPage(Form));
+        await Navigation.PushAsync(new SubmittedFormsPage(Form, null));
     }
 }

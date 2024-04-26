@@ -72,5 +72,18 @@ namespace UWO_DailyCustodian.Model
                 return false;
             }
         }
+
+        public async Task<bool> InsertPhoto(byte[] fileData, string filePath)
+        {
+            try
+            {
+                return await Database.InsertPhoto(fileData, filePath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Insert failed: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

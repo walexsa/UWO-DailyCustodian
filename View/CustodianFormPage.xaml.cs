@@ -62,7 +62,5 @@ public partial class CustodianFormPage : ContentPage
         entr_dusting.IsChecked = false;
 
         await DisplayAlert("Submission Confirmation", "Your form was successfully submitted. Thank you!", "OK");
-
-        // await Navigation.PushAsync(new CustodianPasscodePage(form));
     }
 }

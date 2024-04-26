@@ -11,12 +11,14 @@ public partial class SubmittedFormsPage : ContentPage
     public ObservableCollection<CustodianForm> Forms;
     private IBusinessLogic businessLogic;
     public LeadForm Form { get; set; }
-    public SubmittedFormsPage(LeadForm form)
+    public byte[] ImageBytes { get; set; }
+    public SubmittedFormsPage(LeadForm form, byte[] imageBytes)
 	{
 		InitializeComponent();
 
         this.BindingContext = this;
         Form = form;
+        ImageBytes = imageBytes;
 
         InitializeFormsAsync();
     }
@@ -59,7 +61,27 @@ public partial class SubmittedFormsPage : ContentPage
                 }
             }
         }
+
+        if (ImageBytes != null)
+        {
+            string photoFilePath = leadFormId.ToString() + ".png";
+            bool insertPhotoSuccess = await businessLogic.InsertPhoto(ImageBytes, photoFilePath);
+
+            if (!insertPhotoSuccess)
+            {
+                await DisplayAlert("Image could not be saved.", "Please try again.", "OK");
+                return;
+            }
+        }
+
         await DisplayAlert("Submission Confirmation", "Your form was successfully submitted. Thank you!", "OK");
+
+        //LeadFormPage leadFormPage = Navigation.NavigationStack[0] as LeadFormPage;
+        //if (leadFormPage != null)
+        //{
+        //    leadFormPage.shouldClearForm = true;
+        //}
+        Navigation.InsertPageBefore(new LeadFormPage(), Navigation.NavigationStack[0]);
         await Navigation.PopToRootAsync();
     }
 }

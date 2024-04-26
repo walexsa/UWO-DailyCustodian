@@ -1,3 +1,6 @@
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Storage;
+using System.Collections.ObjectModel;
 using System.Windows.Markup;
 using UWO_DailyCustodian.ViewModel;
 namespace UWO_DailyCustodian.View;
@@ -7,7 +10,7 @@ public partial class LeadFormPage : ContentPage
     public LeadFormPage()
 	{
 		InitializeComponent();
-	}
+    }
 
     private int ClassBoards { get; set; }
     private int ClassGarbage { get; set; }
@@ -39,6 +42,8 @@ public partial class LeadFormPage : ContentPage
     private int EntrFloors { get; set; }
     private int EntrRugs { get; set; }
     private int EntrDusting { get; set; }
+    private byte[] image;
+    public bool shouldClearForm = false;
 
     void OnCheckedChanged(object sender, EventArgs e)
     {
@@ -84,7 +89,7 @@ public partial class LeadFormPage : ContentPage
         }
     }
 
-    async void SelectPhotosClicked(object sender, EventArgs e)
+    async void SelectPhotoClicked(object sender, EventArgs e)
     {
         if (MediaPicker.Default.IsCaptureSupported)
         {
@@ -92,14 +97,107 @@ public partial class LeadFormPage : ContentPage
 
             if (photo != null)
             {
-                // save photo in db
+                try
+                {
+                    byte[] imageBytes;
+                    using (Stream fileStream = await photo.OpenReadAsync())
+                    {
+                        using (MemoryStream memoryStream = new MemoryStream())
+                        {
+                            await fileStream.CopyToAsync(memoryStream);
+
+                            imageBytes = memoryStream.ToArray();
+                        }
+                    }
+
+                    image = imageBytes;
+
+                    ImageSource imageSource = ImageSource.FromStream(() =>
+                    {
+                        MemoryStream memoryStream = new MemoryStream(imageBytes);
+                        return memoryStream;
+                    });
+
+                    SelectedImage.Source = imageSource;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error", $"An error occurred: {ex.Message}", "OK");
+                }
             }
         }
     }
 
     async void NextButtonClicked(object sender, EventArgs e)
     {
+        if (firstName.Text == null || lastName.Text == null)
+        {
+            await DisplayAlert("Required field not filled out", "Please enter your name.", "OK");
+            return;
+        }
+        if (building.Text == null)
+        {
+            await DisplayAlert("Required field not filled out", "Please enter the building you work in.", "OK");
+            return;
+        }
         LeadForm form = new LeadForm(firstName.Text, lastName.Text, building.Text, ClassBoards, ClassGarbage, ClassFloors, ClassDusting, ClassWindows, ClassWalls, HallFloors, HallGarbage, HallDusting, HallWalls, BathSinks, BathToilets, BathDusting, BathMirrors, BathLedges, BathDryers, BathVents, BathFloors, BathWalls, BathCurtains, BathShower, BathSupply, OfficeVacuum, StairFloors, StairRailings, StairWalls, EntrGlass, EntrFloors, EntrRugs, EntrDusting, remarks.Text);
-        await Navigation.PushAsync(new LeadPasscodePage(form));
+        await Navigation.PushAsync(new SubmittedFormsPage(form, image));
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (shouldClearForm)
+        {
+            ClearForm();
+            shouldClearForm = false;
+        }
+    }
+
+    private void ClearForm()
+    {
+        firstName.Text = "";
+        lastName.Text = "";
+        building.Text = "";
+        remarks.Text = "";
+
+        ClearRadioButtonGroup("class_boards");
+        ClearRadioButtonGroup("class_garbage");
+        ClearRadioButtonGroup("class_floors");
+        ClearRadioButtonGroup("class_dusting");
+        ClearRadioButtonGroup("class_windows");
+        ClearRadioButtonGroup("class_walls");
+        ClearRadioButtonGroup("hall_floors");
+        ClearRadioButtonGroup("hall_garbage");
+        ClearRadioButtonGroup("hall_dusting");
+        ClearRadioButtonGroup("hall_walls");
+        ClearRadioButtonGroup("bath_sinks");
+        ClearRadioButtonGroup("bath_toilets");
+        ClearRadioButtonGroup("bath_dusting");
+        ClearRadioButtonGroup("bath_mirrors");
+        ClearRadioButtonGroup("bath_ledges");
+        ClearRadioButtonGroup("bath_dryers");
+        ClearRadioButtonGroup("bath_vents");
+        ClearRadioButtonGroup("bath_floors");
+        ClearRadioButtonGroup("bath_walls");
+        ClearRadioButtonGroup("bath_curtains");
+        ClearRadioButtonGroup("bath_shower");
+        ClearRadioButtonGroup("bath_supply");
+        ClearRadioButtonGroup("office_vacuum");
+        ClearRadioButtonGroup("stair_floors");
+        ClearRadioButtonGroup("stair_railings");
+        ClearRadioButtonGroup("stair_walls");
+        ClearRadioButtonGroup("entr_glass");
+        ClearRadioButtonGroup("entr_floors");
+        ClearRadioButtonGroup("entr_rugs");
+        ClearRadioButtonGroup("entr_dusting");
+
+        SelectedImage.Source = null;
+    }
+
+    private void ClearRadioButtonGroup(string groupName)
+    {
+        
     }
 }
