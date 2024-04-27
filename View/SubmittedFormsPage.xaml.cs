@@ -76,11 +76,6 @@ public partial class SubmittedFormsPage : ContentPage
 
         await DisplayAlert("Submission Confirmation", "Your form was successfully submitted. Thank you!", "OK");
 
-        //LeadFormPage leadFormPage = Navigation.NavigationStack[0] as LeadFormPage;
-        //if (leadFormPage != null)
-        //{
-        //    leadFormPage.shouldClearForm = true;
-        //}
         Navigation.InsertPageBefore(new LeadFormPage(), Navigation.NavigationStack[0]);
         await Navigation.PopToRootAsync();
     }
