@@ -20,6 +20,10 @@ namespace UWO_DailyCustodian.Model
             Database = UWO_DailyCustodian.Model.Database.Instance;
         }
 
+        public async Task<string> GetRole(string email)
+        {
+            return await Database.GetRole(email);
+        }
         public async Task<string> SignUp(string email, string password)
         {
             //UserEmail user = await Database.SelectUserEmail(email);

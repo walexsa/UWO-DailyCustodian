@@ -12,6 +12,7 @@ namespace UWO_DailyCustodian.Model
     {
         public Task<ObservableCollection<CustodianForm>> CustodianForms { get; }
         public Task<ObservableCollection<LeadForm>> LeadForms { get; }
+        public Task<string> GetRole(string email);
         public Task<string> SignUp(string email, string password);
         public Task<bool> SignIn(string email, string password);
         public Task<bool> InsertCustodianForm(CustodianForm form);

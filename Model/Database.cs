@@ -64,11 +64,12 @@ namespace UWO_DailyCustodian.Model
             return leadForms;
         }
 
-        private async Task<UserEmail> SelectUserEmail(string email)
+        public async Task<string> GetRole(string email)
         {
             var result = await supabase.From<UserEmail>().Get();
             List<UserEmail> users = new List<UserEmail>(result.Models);
-            return users.Find(x => x.Email.Equals(email));
+            UserEmail userEmail = users.Find(x => x.Email.Equals(email));
+            return userEmail.Role;
         }
         public async Task<string> SignUp(string email, string password, string role)
         {
@@ -100,32 +101,31 @@ namespace UWO_DailyCustodian.Model
 
             var userProfile = supabase.Auth.CurrentUser;
             var userRole = userProfile.Role;
-            // TODO - test what role comes back if not authenticated
-            if (userRole.Equals("authenticated") && !userProfile.UserMetadata.ContainsKey("job")) {
-                UserEmail user = await SelectUserEmail(email);
-                string newRole = user.Role;
+            // TODO - add roles to users?
+            //if (userRole.Equals("authenticated")) {
+            //    string newRole = await GetRole(email);
 
-                if (userProfile == null)
-                {
-                    Console.WriteLine("Failed to retrieve user profile.");
-                    return false;
-                }
+            //    if (userProfile == null)
+            //    {
+            //        Console.WriteLine("Failed to retrieve user profile.");
+            //        return false;
+            //    }
 
-                var attr = new UserAttributes
-                {
-                    Data = new Dictionary<string, object> { { "job", newRole } }
-                };
+            //    var attr = new UserAttributes
+            //    {
+            //        Data = new Dictionary<string, object> { { "job", newRole } }
+            //    };
 
-                // adds a value to data dictionary, not role column.. 
-                // TODO
-                var updateResponse = await supabase.Auth.Update(attr);
+            //    // adds a value to data dictionary, not role column.. 
+            //    // TODO
+            //    var updateResponse = await supabase.Auth.Update(attr);
 
-                if (updateResponse == null)
-                {
-                    Console.WriteLine("Failed to update user profile.");
-                    return false;
-                }
-            }
+            //    if (updateResponse == null)
+            //    {
+            //        Console.WriteLine("Failed to update user profile.");
+            //        return false;
+            //    }
+            //}
 
             return true;
         }
