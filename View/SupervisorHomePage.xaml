@@ -5,12 +5,18 @@
              Title="Files">
     <VerticalStackLayout>
         <Button Text="Add New Supervisor" Clicked="AddSupervisorClicked"/>
-        <Button Text="View Codes" Clicked="ViewCodesClicked"/>
 
-        <!--Add selection options to download and delete-->
+        <SearchBar x:Name="SearchBar"
+                   Placeholder="Search by name, building, or date"
+                   Text="{Binding SearchQuery, Mode=TwoWay}" />
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Button Text="Delete" Clicked="DeleteFormsClicked" />
+            <Button Text="Download" Clicked="DownloadFormsClicked" Margin="10,0,0,0" />
+        </StackLayout>
         
         <Grid>
-            <CollectionView x:Name="FormsCV" Grid.Row="0" ItemsSource="{Binding Forms}" SelectionMode="Multiple">
+            <CollectionView x:Name="FormsCV" Grid.Row="0" ItemsSource="{Binding FilteredForms}" SelectionMode="Multiple">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Margin="10" Padding="0" BackgroundColor="LightGray" CornerRadius="5">

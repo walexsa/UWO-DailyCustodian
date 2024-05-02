@@ -15,7 +15,7 @@
     </NavigationPage>
     <NavigationPage Title="Supervisors" IconImageSource="supervisor.png">
         <x:Arguments>
-            <local:SupervisorLoginPage />
+            <local:SupervisorHomePage />
         </x:Arguments>
     </NavigationPage>
 </TabbedPage>

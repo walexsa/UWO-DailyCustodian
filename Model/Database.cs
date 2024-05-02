@@ -2,6 +2,7 @@
 using Supabase;
 using Supabase.Gotrue;
 using Supabase.Gotrue.Exceptions;
+using Supabase.Interfaces;
 using System.Collections.ObjectModel;
 using UWO_DailyCustodian.ViewModel;
 
@@ -10,8 +11,8 @@ namespace UWO_DailyCustodian.Model
     public class Database : IDatabase
     {
         private static Database _instance;
-        private const string SupabaseUrl = "https://qhaomokzlbyayepdehvy.supabase.co";
-        private const string ApiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFoYW9tb2t6bGJ5YXllcGRlaHZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDgyMDE3MzUsImV4cCI6MjAyMzc3NzczNX0.U8rh_R9musw71qqB9cId7uEosaiyZVcm9jqElnZUSag";
+        private string SupabaseUrl = "https://qhaomokzlbyayepdehvy.supabase.co"; //Environment.GetEnvironmentVariable("SUPABASE_URL");
+        private string ApiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFoYW9tb2t6bGJ5YXllcGRlaHZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDgyMDE3MzUsImV4cCI6MjAyMzc3NzczNX0.U8rh_R9musw71qqB9cId7uEosaiyZVcm9jqElnZUSag"; //Environment.GetEnvironmentVariable("API_KEY");
 
         ObservableCollection<CustodianForm> custodianForms = new();
         ObservableCollection<LeadForm> leadForms = new();
@@ -67,6 +68,10 @@ namespace UWO_DailyCustodian.Model
         public async Task<string> GetRole(string email)
         {
             var result = await supabase.From<UserEmail>().Get();
+            if (result == null)
+            {
+                return null;
+            }
             List<UserEmail> users = new List<UserEmail>(result.Models);
             UserEmail userEmail = users.Find(x => x.Email.Equals(email));
             return userEmail.Role;
@@ -242,6 +247,19 @@ namespace UWO_DailyCustodian.Model
             var response = await supabase.Storage.From("photos").Download(filePath, null);
 
             return response;
+        }
+
+        public async Task DeleteLeadForms(List<int> formIds)
+        {
+            foreach (var formId in formIds)
+            {
+                await supabase.From<FormRelation>().Where(x => x.LeadId == formId).Delete();
+
+                await supabase.From<LeadForm>().Where(x => x.Id == formId).Delete();
+
+                string imageFilePath = $"{formId}.png";
+                await supabase.Storage.From("photos").Remove(imageFilePath);
+            }
         }
     }
 }

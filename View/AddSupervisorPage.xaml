@@ -2,21 +2,44 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UWO_DailyCustodian.View.AddSupervisorPage"
-             Title="AddSupervisorPage">
+             Title="Add Employee Account">
     <VerticalStackLayout 
         Spacing="15"
         Padding="30,0"
         VerticalOptions="CenterAndExpand">
 
         <Label 
-            Text="Create a username for the supervisor:"
+            Text="Enter the employee's email:"
             VerticalOptions="Center" 
             HorizontalOptions="Center" 
             FontSize="24"
             HorizontalTextAlignment="Center"/>
 
-        <Entry x:Name="usernameENT" Placeholder="Username"/>
+        <Entry x:Name="usernameENT" Placeholder="Email"/>
 
-        <Button Text="Create" Clicked="CreateButtonClicked"/>
+        <Label 
+            Text="Select their role:"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            FontSize="24"
+            HorizontalTextAlignment="Center"/>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+
+            <RadioButton Content="Custodian"
+                         Value="custodian"
+                         GroupName="Role" />
+
+            <RadioButton Content="Lead"
+                         Value="lead"
+                         GroupName="Role" />
+
+            <RadioButton Content="Supervisor"
+                         Value="supervisor"
+                         GroupName="Role" />
+
+        </StackLayout>
+
+        <Button Text="Add Employee" Clicked="CreateButtonClicked"/>
     </VerticalStackLayout>
 </ContentPage>

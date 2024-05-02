@@ -89,5 +89,10 @@ namespace UWO_DailyCustodian.Model
                 return false;
             }
         }
+
+        public async Task DeleteLeadForms(List<int> formIds)
+        {
+            await Database.DeleteLeadForms(formIds);
+        }
     }
 }
