@@ -65,13 +65,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="View\AddEmployeePage.xaml.cs">
+	    <DependentUpon>AddEmployeePage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="View\CustodianFormPage.xaml.cs">
 	    <DependentUpon>CustodianFormPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="View\AddSupervisorPage.xaml">
+	  <MauiXaml Update="View\AddEmployeePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\CustodianFormPage.xaml">

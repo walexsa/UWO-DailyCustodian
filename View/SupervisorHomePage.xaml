@@ -3,20 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UWO_DailyCustodian.View.SupervisorHomePage"
              Title="Files">
-    <VerticalStackLayout>
-        <Button Text="Add New Supervisor" Clicked="AddSupervisorClicked"/>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add New Employee" Clicked="AddEmployeeClicked"/>
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <!-- Define row definitions -->
+        <Grid.RowDefinitions>
+            <!-- First row for fixed buttons and search bar -->
+            <RowDefinition Height="Auto" />
+            <!-- Second row for scrollable CollectionView -->
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <SearchBar x:Name="SearchBar"
-                   Placeholder="Search by name, building, or date"
-                   Text="{Binding SearchQuery, Mode=TwoWay}" />
+        <!-- Top section with buttons and search bar -->
+        <VerticalStackLayout Grid.Row="0">
+            <SearchBar x:Name="SearchBar"
+                       Placeholder="Search by name, building, or date"
+                       Text="{Binding SearchQuery, Mode=TwoWay}" 
+                       HorizontalOptions="Center" />
 
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-            <Button Text="Delete" Clicked="DeleteFormsClicked" />
-            <Button Text="Download" Clicked="DownloadFormsClicked" Margin="10,0,0,0" />
-        </StackLayout>
-        
-        <Grid>
-            <CollectionView x:Name="FormsCV" Grid.Row="0" ItemsSource="{Binding FilteredForms}" SelectionMode="Multiple">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Delete" Clicked="DeleteFormsClicked" />
+                <Button Text="Download" Clicked="DownloadFormsClicked" Margin="10,0,0,0" />
+            </StackLayout>
+        </VerticalStackLayout>
+
+        <!-- Bottom section with CollectionView inside a ScrollView -->
+        <ScrollView Grid.Row="1">
+            <CollectionView x:Name="FormsCV" 
+                            ItemsSource="{Binding FilteredForms}" 
+                            SelectionMode="Multiple">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Margin="10" Padding="0" BackgroundColor="LightGray" CornerRadius="5">
@@ -29,6 +45,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </Grid>
-    </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

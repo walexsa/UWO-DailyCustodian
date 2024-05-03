@@ -90,6 +90,11 @@ namespace UWO_DailyCustodian.Model
             }
         }
 
+        public async Task<bool> AddEmployee(string email, string role)
+        {
+            return await Database.AddEmployee(email, role);
+        }
+
         public async Task DeleteLeadForms(List<int> formIds)
         {
             await Database.DeleteLeadForms(formIds);

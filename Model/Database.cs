@@ -249,6 +249,34 @@ namespace UWO_DailyCustodian.Model
             return response;
         }
 
+        public async Task<bool> AddEmployee(string email, string role)
+        {
+            try
+            {
+                if (supabase == null)
+                {
+                    Console.WriteLine("supabaseClient is null");
+                    return false;
+                }
+
+                var response = await supabase.From<UserEmail>().Insert(new UserEmail(email, role));
+
+                int statusCode = (int)response.ResponseMessage.StatusCode;
+                if (statusCode >= 400 && statusCode <= 599)
+                {
+                    Console.WriteLine($"Insert failed, {response.ResponseMessage.Content}");
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Insert failed, {e}");
+                return false;
+            }
+        }
+
         public async Task DeleteLeadForms(List<int> formIds)
         {
             foreach (var formId in formIds)

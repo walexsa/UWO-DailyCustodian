@@ -41,9 +41,9 @@ public partial class SupervisorHomePage : ContentPage
         FormsCV.ItemsSource = FilteredForms;
     }
 
-    async void AddSupervisorClicked(object sender, EventArgs e)
+    async void AddEmployeeClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new AddSupervisorPage());
+        await Navigation.PushAsync(new AddEmployeePage());
     }
 
     private void FilterForms()
@@ -67,25 +67,26 @@ public partial class SupervisorHomePage : ContentPage
 
     async void DeleteFormsClicked(object sender, EventArgs e)
     {
-        // Get the selected forms
-        var selectedForms = FormsCV.SelectedItems.Cast<LeadForm>().ToList();
-
-        List<int> formIds = new List<int>();
-        foreach (var form in selectedForms)
+        bool deleteForms = await DisplayAlert("Deletion Confirmation", "Are you sure you want to delete all of these forms?", "Yes", "No, Go Back");
+        if (deleteForms)
         {
-            formIds.Add(form.Id);
-        }
-        await businessLogic.DeleteLeadForms(formIds);
+            var selectedForms = FormsCV.SelectedItems.Cast<LeadForm>().ToList();
 
-        // Remove the selected forms from the Forms collection
-        foreach (var form in selectedForms)
-        {
-            Forms.Remove(form);
-        }
+            List<int> formIds = new List<int>();
+            foreach (var form in selectedForms)
+            {
+                formIds.Add(form.Id);
+            }
+            await businessLogic.DeleteLeadForms(formIds);
 
-        // Refresh FilteredForms to reflect the removed forms
-        FilteredForms = new ObservableCollection<LeadForm>(Forms);
-        FormsCV.ItemsSource = FilteredForms;
+            foreach (var form in selectedForms)
+            {
+                Forms.Remove(form);
+            }
+
+            FilteredForms = new ObservableCollection<LeadForm>(Forms);
+            FormsCV.ItemsSource = FilteredForms;
+        }
     }
 
     async void DownloadFormsClicked(object sender, EventArgs e)

@@ -14,5 +14,10 @@ namespace UWO_DailyCustodian.ViewModel
         public string Role { get; set; }
 
         public UserEmail() { }
+        public UserEmail(string email, string role)
+        {
+            Email = email;
+            Role = role;
+        }
     }
 }

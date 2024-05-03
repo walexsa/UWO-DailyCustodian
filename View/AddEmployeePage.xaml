@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="UWO_DailyCustodian.View.AddSupervisorPage"
+             x:Class="UWO_DailyCustodian.View.AddEmployeePage"
              Title="Add Employee Account">
     <VerticalStackLayout 
         Spacing="15"
@@ -15,7 +15,7 @@
             FontSize="24"
             HorizontalTextAlignment="Center"/>
 
-        <Entry x:Name="usernameENT" Placeholder="Email"/>
+        <Entry x:Name="emailENT" Placeholder="Email"/>
 
         <Label 
             Text="Select their role:"
@@ -28,15 +28,19 @@
 
             <RadioButton Content="Custodian"
                          Value="custodian"
-                         GroupName="Role" />
+                         GroupName="Role" 
+                         CheckedChanged="OnRadioButtonCheckedChanged"
+                         IsChecked="True"/>
 
             <RadioButton Content="Lead"
                          Value="lead"
-                         GroupName="Role" />
+                         GroupName="Role" 
+                         CheckedChanged="OnRadioButtonCheckedChanged"/>
 
             <RadioButton Content="Supervisor"
                          Value="supervisor"
-                         GroupName="Role" />
+                         GroupName="Role" 
+                         CheckedChanged="OnRadioButtonCheckedChanged"/>
 
         </StackLayout>
 

@@ -19,6 +19,7 @@ namespace UWO_DailyCustodian.Model
         public Task<int> InsertLeadForm(LeadForm form);
         public Task<bool> InsertFormRelation(int leadFormId, int custodianFormId);
         public Task<bool> InsertPhoto(byte[] fileData, string filePath);
+        public Task<bool> AddEmployee(string email, string role);
         public Task DeleteLeadForms(List<int> formIds);
 
     }
