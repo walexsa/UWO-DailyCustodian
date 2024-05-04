@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UWO_DailyCustodian.View.FileUrlsPage"
+             Title="File Urls">
+    <ScrollView>
+        <StackLayout Padding="10">
+
+            <!-- Add the instruction label at the top -->
+            <Label Text="Click the following URLs to download the files selected on the previous page"
+                   FontSize="16"
+                   Margin="0,0,0,10" 
+                   HorizontalOptions="Center" />
+            <!-- Optional: add margin to separate from the list -->
+
+            <!-- Create a StackLayout to hold the clickable links -->
+            <StackLayout x:Name="linksStackLayout" Spacing="10">
+                <!-- The clickable links will be added programmatically in the code-behind -->
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -95,9 +95,18 @@ namespace UWO_DailyCustodian.Model
             return await Database.AddEmployee(email, role);
         }
 
-        public async Task DeleteLeadForms(List<int> formIds)
+        public async Task DeleteLeadForms(List<LeadForm> forms)
         {
-            await Database.DeleteLeadForms(formIds);
+            await Database.DeleteLeadForms(forms);
+        }
+
+        public async Task<string> CreateAndUploadExcelDocument(LeadForm leadForm, int leadFormId, List<CustodianForm> custodianForms, string imagePath)
+        {
+            return await Database.CreateAndUploadExcelDocument(leadForm, leadFormId, custodianForms, imagePath);
+        }
+        public List<string> DownloadForms(List<LeadForm> forms)
+        {
+            return Database.DownloadForms(forms);
         }
     }
 }

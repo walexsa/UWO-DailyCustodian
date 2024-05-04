@@ -72,12 +72,7 @@ public partial class SupervisorHomePage : ContentPage
         {
             var selectedForms = FormsCV.SelectedItems.Cast<LeadForm>().ToList();
 
-            List<int> formIds = new List<int>();
-            foreach (var form in selectedForms)
-            {
-                formIds.Add(form.Id);
-            }
-            await businessLogic.DeleteLeadForms(formIds);
+            await businessLogic.DeleteLeadForms(selectedForms);
 
             foreach (var form in selectedForms)
             {
@@ -91,15 +86,10 @@ public partial class SupervisorHomePage : ContentPage
 
     async void DownloadFormsClicked(object sender, EventArgs e)
     {
-        // Get the selected forms
         var selectedForms = FormsCV.SelectedItems.Cast<LeadForm>().ToList();
 
-        // Implement your download logic here
-        // For example, you might loop through the selected forms and save them to a file
-        foreach (var form in selectedForms)
-        {
-            // Perform download action for each form
-            //await DownloadFormAsync(form);
-        }
+        List<string> urls = businessLogic.DownloadForms(selectedForms);
+
+        await Navigation.PushAsync(new FileUrlsPage(urls));
     }
 }

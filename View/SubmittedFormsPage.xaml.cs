@@ -47,11 +47,13 @@ public partial class SubmittedFormsPage : ContentPage
             return;
         }
 
+        List<CustodianForm> custodianForms = new List<CustodianForm>();
         foreach (var selectedItem in FormsCV.SelectedItems)
         {
             if (selectedItem is CustodianForm form)
             {
                 int custodianFormId = form.Id;
+                custodianForms.Add(form);
                 bool success = await businessLogic.InsertFormRelation(leadFormId, custodianFormId);
 
                 if (!success)
@@ -62,9 +64,10 @@ public partial class SubmittedFormsPage : ContentPage
             }
         }
 
+        string photoFilePath = null;
         if (ImageBytes != null)
         {
-            string photoFilePath = leadFormId.ToString() + ".png";
+            photoFilePath = leadFormId.ToString() + ".png";
             bool insertPhotoSuccess = await businessLogic.InsertPhoto(ImageBytes, photoFilePath);
 
             if (!insertPhotoSuccess)
@@ -73,6 +76,8 @@ public partial class SubmittedFormsPage : ContentPage
                 return;
             }
         }
+
+        await businessLogic.CreateAndUploadExcelDocument(Form, leadFormId, custodianForms, photoFilePath);
 
         await DisplayAlert("Submission Confirmation", "Your form was successfully submitted. Thank you!", "OK");
 
