@@ -46,6 +46,11 @@ public partial class SupervisorHomePage : ContentPage
         await Navigation.PushAsync(new AddEmployeePage());
     }
 
+    async void RemoveEmployeeClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new DeleteEmployeePage());
+    }
+
     private void FilterForms()
     {
         if (string.IsNullOrWhiteSpace(searchQuery))

@@ -4,7 +4,8 @@
              x:Class="UWO_DailyCustodian.View.SupervisorHomePage"
              Title="Files">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add New Employee" Clicked="AddEmployeeClicked"/>
+        <ToolbarItem IconImageSource="edit_employee.png" Clicked="AddEmployeeClicked"/>
+        <ToolbarItem IconImageSource="delete_employee.png" Clicked="RemoveEmployeeClicked"/>
     </ContentPage.ToolbarItems>
     <Grid>
         <!-- Define row definitions -->

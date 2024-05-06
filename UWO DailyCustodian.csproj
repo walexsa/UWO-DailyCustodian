@@ -50,6 +50,8 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\cleaning.png" />
+	  <None Remove="Resources\Images\delete_employee.png" />
+	  <None Remove="Resources\Images\edit_employee.png" />
 	  <None Remove="Resources\Images\filter.png" />
 	  <None Remove="Resources\Images\lead.png" />
 	  <None Remove="Resources\Images\search.png" />

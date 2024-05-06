@@ -28,13 +28,13 @@ public partial class LoginPage : ContentPage
                 switch (role)
                 {
                     case "custodian":
-                        Application.Current.MainPage = new CustodianFormPage();
+                        Application.Current.MainPage = new NavigationPage(new CustodianFormPage());
                         break;
                     case "lead":
-                        Application.Current.MainPage = new LeadFormPage();
+                        Application.Current.MainPage = new NavigationPage(new LeadFormPage());
                         break;
                     case "supervisor":
-                        Application.Current.MainPage = new SupervisorHomePage();
+                        Application.Current.MainPage = new NavigationPage(new SupervisorHomePage());
                         break;
                     case "admin":
                         Application.Current.MainPage = new TabbedPage();
