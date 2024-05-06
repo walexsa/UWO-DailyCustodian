@@ -95,6 +95,11 @@ namespace UWO_DailyCustodian.Model
             return await Database.AddEmployee(email, role);
         }
 
+        public async Task<bool> RemoveEmployee(string email)
+        {
+            return await Database.RemoveEmployee(email);
+        }
+
         public async Task DeleteLeadForms(List<LeadForm> forms)
         {
             await Database.DeleteLeadForms(forms);

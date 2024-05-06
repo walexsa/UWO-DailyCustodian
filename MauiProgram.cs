@@ -12,11 +12,6 @@ namespace UWO_DailyCustodian
         {
             var builder = MauiApp.CreateBuilder();
 
-            builder.Configuration.AddUserSecrets<App>();
-
-            string supabaseApiKey = builder.Configuration["API_KEY"];
-            string supabaseUrl = builder.Configuration["SUPABASE_URL"];
-
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>

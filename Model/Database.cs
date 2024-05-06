@@ -236,15 +236,57 @@ namespace UWO_DailyCustodian.Model
                     return false;
                 }
 
-                var response = await supabase.From<UserEmail>().Insert(new UserEmail(email, role));
-
-                int statusCode = (int)response.ResponseMessage.StatusCode;
-                if (statusCode >= 400 && statusCode <= 599)
+                // check if email exists in the table already and edit the row
+                var result = await supabase.From<UserEmail>().Get();
+                if (result == null)
                 {
-                    Console.WriteLine($"Insert failed, {response.ResponseMessage.Content}");
+                    return false;
+                }
+                List<UserEmail> users = new List<UserEmail>(result.Models);
+                UserEmail userEmail = users.Find(x => x.Email.Equals(email));
+                if (userEmail != null)
+                {
+                    var response = await supabase.From<UserEmail>().Where(x => x.Email == email).Set(x => x.Role, role).Update();
+
+                    int statusCode = (int)response.ResponseMessage.StatusCode;
+                    if (statusCode >= 400 && statusCode <= 599)
+                    {
+                        Console.WriteLine($"Insert failed, {response.ResponseMessage.Content}");
+                        return false;
+                    }
+                }
+                else
+                {
+                    var response = await supabase.From<UserEmail>().Insert(new UserEmail(email, role));
+
+                    int statusCode = (int)response.ResponseMessage.StatusCode;
+                    if (statusCode >= 400 && statusCode <= 599)
+                    {
+                        Console.WriteLine($"Insert failed, {response.ResponseMessage.Content}");
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Insert failed, {e}");
+                return false;
+            }
+        }
+
+        public async Task<bool> RemoveEmployee(string email)
+        {
+            try
+            {
+                if (supabase == null)
+                {
+                    Console.WriteLine("supabaseClient is null");
                     return false;
                 }
 
+                await supabase.From<UserEmail>().Where(x => x.Email.Equals(email)).Delete();
                 return true;
             }
             catch (Exception e)
