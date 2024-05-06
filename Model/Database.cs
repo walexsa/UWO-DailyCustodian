@@ -72,6 +72,7 @@ namespace UWO_DailyCustodian.Model
 
         public async Task<string> GetRole(string email)
         {
+            // try to get only one
             var result = await supabase.From<UserEmail>().Get();
             if (result == null)
             {
@@ -79,6 +80,10 @@ namespace UWO_DailyCustodian.Model
             }
             List<UserEmail> users = new List<UserEmail>(result.Models);
             UserEmail userEmail = users.Find(x => x.Email.Equals(email));
+            if (userEmail == null)
+            {
+                return null;
+            }
             return userEmail.Role;
         }
         public async Task<string> SignUp(string email, string password, string role)
