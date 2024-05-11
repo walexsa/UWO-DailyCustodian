@@ -39,7 +39,6 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -52,11 +51,8 @@
 	  <None Remove="Resources\Images\cleaning.png" />
 	  <None Remove="Resources\Images\delete_employee.png" />
 	  <None Remove="Resources\Images\edit_employee.png" />
-	  <None Remove="Resources\Images\filter.png" />
 	  <None Remove="Resources\Images\lead.png" />
-	  <None Remove="Resources\Images\search.png" />
 	  <None Remove="Resources\Images\supervisor.png" />
-	  <None Remove="Resources\Images\trash.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -68,25 +64,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="View\AddEmployeePage.xaml.cs">
-	    <DependentUpon>AddEmployeePage.xaml</DependentUpon>
+	  <Compile Update="View\AddEditEmployeePage.xaml.cs">
+	    <DependentUpon>AddEditEmployeePage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="View\CustodianFormPage.xaml.cs">
 	    <DependentUpon>CustodianFormPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="View\RemoveEmployeePage.xaml.cs">
+	    <DependentUpon>RemoveEmployeePage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="View\AddEmployeePage.xaml">
+	  <MauiXaml Update="View\AddEditEmployeePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\CustodianFormPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\CustodianPasscodePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="View\DeleteEmployeePage.xaml">
+	  <MauiXaml Update="View\RemoveEmployeePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\FileUrlsPage.xaml">
@@ -98,9 +94,6 @@
 	  <MauiXaml Update="View\LeadFormPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\LeadPasscodePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="View\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -110,13 +103,7 @@
 	  <MauiXaml Update="View\SupervisorHomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\SupervisorLoginPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="View\TabbedPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="View\ViewCodesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

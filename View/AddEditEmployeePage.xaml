@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="UWO_DailyCustodian.View.AddEmployeePage"
-             Title="Add Employee Account">
+             x:Class="UWO_DailyCustodian.View.AddEditEmployeePage"
+             Title="Add or Edit an Employee Account">
     <VerticalStackLayout 
         Spacing="15"
         Padding="30,0"
@@ -44,6 +44,6 @@
 
         </StackLayout>
 
-        <Button Text="Add Employee" Clicked="CreateButtonClicked"/>
+        <Button Text="Add/Update Employee" Clicked="CreateButtonClicked"/>
     </VerticalStackLayout>
 </ContentPage>

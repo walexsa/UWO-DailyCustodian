@@ -9,7 +9,19 @@ namespace UWO_DailyCustodian.View;
 public partial class SubmittedFormsPage : ContentPage
 {
     public ObservableCollection<CustodianForm> Forms;
+    public ObservableCollection<CustodianForm> FilteredForms { get; private set; }
     private IBusinessLogic businessLogic;
+    private string searchQuery;
+    public string SearchQuery
+    {
+        get => searchQuery;
+        set
+        {
+            searchQuery = value;
+            FilterForms();
+            OnPropertyChanged(nameof(SearchQuery));
+        }
+    }
     public LeadForm Form { get; set; }
     public byte[] ImageBytes { get; set; }
     public SubmittedFormsPage(LeadForm form, byte[] imageBytes)
@@ -27,15 +39,28 @@ public partial class SubmittedFormsPage : ContentPage
     {
         businessLogic = new BusinessLogic();
         Forms = await businessLogic.CustodianForms;
-        FormsCV.ItemsSource = Forms;
+        FilteredForms = new ObservableCollection<CustodianForm>(Forms);
+        FormsCV.ItemsSource = FilteredForms;
     }
 
-    //private void FrameTapped(object sender, EventArgs e)
-    //{
-    //    var frame = sender as Frame;
-    //    var selectedItem = frame?.BindingContext as CustodianForm;
-    //    selectedItem.IsSelected = !selectedItem.IsSelected;
-    //}
+    private void FilterForms()
+    {
+        if (string.IsNullOrWhiteSpace(searchQuery))
+        {
+            FilteredForms = new ObservableCollection<CustodianForm>(Forms);
+        }
+        else
+        {
+            var filteredList = Forms.Where(form =>
+                form.Building.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                form.CustodianName.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                form.Date.ToString("d").Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            FilteredForms = new ObservableCollection<CustodianForm>(filteredList);
+        }
+
+        FormsCV.ItemsSource = FilteredForms;
+    }
 
     async void SubmitButtonClicked(object sender, EventArgs e)
 	{

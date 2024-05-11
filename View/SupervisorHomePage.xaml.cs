@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using UWO_DailyCustodian.ViewModel;
 using UWO_DailyCustodian.Model;
 using Microsoft.Maui.Controls.Compatibility;
+using System.Windows.Input;
 
 namespace UWO_DailyCustodian.View;
 
@@ -41,14 +42,20 @@ public partial class SupervisorHomePage : ContentPage
         FormsCV.ItemsSource = FilteredForms;
     }
 
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await InitializeFormsAsync();
+    }
+
     async void AddEmployeeClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new AddEmployeePage());
+        await Navigation.PushAsync(new AddEditEmployeePage());
     }
 
     async void RemoveEmployeeClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new DeleteEmployeePage());
+        await Navigation.PushAsync(new RemoveEmployeePage());
     }
 
     private void FilterForms()
@@ -72,16 +79,17 @@ public partial class SupervisorHomePage : ContentPage
 
     async void DeleteFormsClicked(object sender, EventArgs e)
     {
-        bool deleteForms = await DisplayAlert("Deletion Confirmation", "Are you sure you want to delete all of these forms?", "Yes", "No, Go Back");
-        if (deleteForms)
+        var selectedForms = FormsCV.SelectedItems.Cast<LeadForm>().ToList();
+        int count = selectedForms.Count();
+        bool deleteForms = await DisplayAlert("Deletion Confirmation", "Are you sure you want to delete " + count + " form(s)?", "Yes", "No, Go Back");
+        if (deleteForms && count > 0)
         {
-            var selectedForms = FormsCV.SelectedItems.Cast<LeadForm>().ToList();
-
             await businessLogic.DeleteLeadForms(selectedForms);
 
             foreach (var form in selectedForms)
             {
                 Forms.Remove(form);
+                FormsCV.SelectedItems.Remove(form);
             }
 
             FilteredForms = new ObservableCollection<LeadForm>(Forms);

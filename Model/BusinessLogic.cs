@@ -26,14 +26,7 @@ namespace UWO_DailyCustodian.Model
         }
         public async Task<string> SignUp(string email, string password)
         {
-            //UserEmail user = await Database.SelectUserEmail(email);
-            //if (user == null)
-            //{
-            //    return "EmailNotRecognized";
-            //}
-
-            //string role = user.Role;
-            return await Database.SignUp(email, password, "bruh");
+            return await Database.SignUp(email, password);
         }
         public async Task<bool> SignIn(string email, string password)
         {
@@ -90,9 +83,9 @@ namespace UWO_DailyCustodian.Model
             }
         }
 
-        public async Task<bool> AddEmployee(string email, string role)
+        public async Task<bool> AddEditEmployee(string email, string role)
         {
-            return await Database.AddEmployee(email, role);
+            return await Database.AddEditEmployee(email, role);
         }
 
         public async Task<bool> RemoveEmployee(string email)

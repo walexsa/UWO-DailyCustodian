@@ -20,9 +20,9 @@ public partial class FirstLoginPage : ContentPage
 
         var response = await businessLogic.SignUp(emailENT.Text, passwordENT.Text);
 
-        if (!response.Equals("testing"))
+        if (!response.Equals("success"))
         {
-            await DisplayAlert("Something went wrong.", "Please try again later.", "OK");
+            await DisplayAlert("Something went wrong: " + response, "Please try again later.", "OK");
             return;
         }
 

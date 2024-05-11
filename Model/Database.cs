@@ -72,30 +72,29 @@ namespace UWO_DailyCustodian.Model
 
         public async Task<string> GetRole(string email)
         {
-            // try to get only one
-            var result = await supabase.From<UserEmail>().Get();
+            var result = await supabase.From<UserEmail>().Where(x => x.Email == email).Get();
             if (result == null)
             {
                 return null;
             }
-            List<UserEmail> users = new List<UserEmail>(result.Models);
-            UserEmail userEmail = users.Find(x => x.Email.Equals(email));
+            UserEmail userEmail = result.Model;
             if (userEmail == null)
             {
                 return null;
             }
             return userEmail.Role;
         }
-        public async Task<string> SignUp(string email, string password, string role)
+        public async Task<string> SignUp(string email, string password)
         {
             try
             {
                 var session = await supabase.Auth.SignUp(email, password);
                 if (session == null)
                 {
-
+                    Console.WriteLine("Sign up failed");
+                    return "session is null";
                 }
-                return "testing";
+                return "success";
             } 
             catch (GotrueException e)
             {
@@ -231,7 +230,7 @@ namespace UWO_DailyCustodian.Model
             return response;
         }
 
-        public async Task<bool> AddEmployee(string email, string role)
+        public async Task<bool> AddEditEmployee(string email, string role)
         {
             try
             {
@@ -242,21 +241,15 @@ namespace UWO_DailyCustodian.Model
                 }
 
                 // check if email exists in the table already and edit the row
-                var result = await supabase.From<UserEmail>().Get();
-                if (result == null)
-                {
-                    return false;
-                }
-                List<UserEmail> users = new List<UserEmail>(result.Models);
-                UserEmail userEmail = users.Find(x => x.Email.Equals(email));
-                if (userEmail != null)
+                var result = await supabase.From<UserEmail>().Where(x => x.Email == email).Get();
+                if (result.Model != null)
                 {
                     var response = await supabase.From<UserEmail>().Where(x => x.Email == email).Set(x => x.Role, role).Update();
 
                     int statusCode = (int)response.ResponseMessage.StatusCode;
                     if (statusCode >= 400 && statusCode <= 599)
                     {
-                        Console.WriteLine($"Insert failed, {response.ResponseMessage.Content}");
+                        Console.WriteLine($"Update failed, {response.ResponseMessage.Content}");
                         return false;
                     }
                 }
@@ -290,8 +283,13 @@ namespace UWO_DailyCustodian.Model
                     Console.WriteLine("supabaseClient is null");
                     return false;
                 }
-
-                await supabase.From<UserEmail>().Where(x => x.Email.Equals(email)).Delete();
+                var account = await supabase.From<UserEmail>().Where(x => x.Email == email).Get();
+                if (account.Model == null)
+                {
+                    Console.WriteLine("Email does not exist in table user_emails to delete.");
+                    return false;
+                }
+                await supabase.From<UserEmail>().Where(x => x.Email == email).Delete();
                 return true;
             }
             catch (Exception e)

@@ -9,20 +9,23 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
+        <SearchBar x:Name="SearchBar"
+           Placeholder="Search by name, building, or date"
+           Text="{Binding SearchQuery, Mode=TwoWay}" 
+           HorizontalOptions="Center" />
+
         <Grid HeightRequest="500" WidthRequest="400" VerticalOptions="Center">
             <CollectionView x:Name="FormsCV" Grid.Row="0" ItemsSource="{Binding Forms}" SelectionMode="Multiple">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame Margin="10" Padding="0" BackgroundColor="LightGray" CornerRadius="5">
-                            <!--<Frame.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="FrameTapped" />
-                            </Frame.GestureRecognizers>-->
+                        <Grid Margin="10">
+                            <BoxView CornerRadius="10" Color="LightGray"/>
                             <StackLayout Padding="10,0,0,0">
                                 <Label Text="{Binding Building}" />
                                 <Label Text="{Binding CustodianName}" />
                                 <Label Text="{Binding Date}" />
                             </StackLayout>
-                        </Frame>
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

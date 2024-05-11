@@ -1,11 +1,11 @@
 using UWO_DailyCustodian.Model;
 namespace UWO_DailyCustodian.View;
 
-public partial class AddEmployeePage : ContentPage
+public partial class AddEditEmployeePage : ContentPage
 {
     private IBusinessLogic businessLogic;
     private string role = "custodian";
-    public AddEmployeePage()
+    public AddEditEmployeePage()
 	{
 		InitializeComponent();
         businessLogic = new BusinessLogic();
@@ -15,11 +15,17 @@ public partial class AddEmployeePage : ContentPage
     {
         if (emailENT.Text == null)
         {
-            await DisplayAlert("Email not given", "Please provide an email for the employee you wish to add.", "OK");
+            await DisplayAlert("Email not given", "Please provide an email for the employee you wish to add or update.", "OK");
         }
-        bool success = await businessLogic.AddEmployee(emailENT.Text, role);
-        await DisplayAlert("Success", "Employee added. Thank you!", "Go Back");
-        await Navigation.PopAsync();
+        bool success = await businessLogic.AddEditEmployee(emailENT.Text, role);
+        if (success)
+        {
+            await DisplayAlert("Success", "Employee list has been updated. Thank you!", "Go Back");
+            await Navigation.PopAsync();
+        } else
+        {
+            await DisplayAlert("Something went wrong.", "Please try again later.", "OK");
+        }
     }
     private void OnRadioButtonCheckedChanged(object sender, CheckedChangedEventArgs e)
     {
