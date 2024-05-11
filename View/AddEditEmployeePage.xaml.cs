@@ -1,6 +1,7 @@
 using UWO_DailyCustodian.Model;
 namespace UWO_DailyCustodian.View;
 
+// Class for the Add/Edit Employee page, responsible for managing employee creation or update
 public partial class AddEditEmployeePage : ContentPage
 {
     private IBusinessLogic businessLogic;
@@ -27,6 +28,8 @@ public partial class AddEditEmployeePage : ContentPage
             await DisplayAlert("Something went wrong.", "Please try again later.", "OK");
         }
     }
+
+    // Update the role when a different button is clicked
     private void OnRadioButtonCheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         if (sender is RadioButton radioButton)

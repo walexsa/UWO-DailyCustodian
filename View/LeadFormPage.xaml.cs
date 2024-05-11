@@ -5,6 +5,7 @@ using System.Windows.Markup;
 using UWO_DailyCustodian.ViewModel;
 namespace UWO_DailyCustodian.View;
 
+// Class for the LeadFormPage, responsible for capturing lead form data
 public partial class LeadFormPage : ContentPage
 {
     public LeadFormPage()
@@ -12,6 +13,7 @@ public partial class LeadFormPage : ContentPage
 		InitializeComponent();
     }
 
+    // Properties to store form field values
     private int ClassBoards { get; set; }
     private int ClassGarbage { get; set; }
     private int ClassFloors { get; set; }
@@ -53,6 +55,7 @@ public partial class LeadFormPage : ContentPage
             int value = int.Parse(rb.Value.ToString());
             switch (rb.GroupName)
             {
+                // Assign selected value to respective property
                 case "class_boards": ClassBoards = value; break;
                 case "class_garbage": ClassGarbage = value; break;
                 case "class_floors": ClassFloors = value; break;
@@ -88,17 +91,22 @@ public partial class LeadFormPage : ContentPage
         }
     }
 
+    // Event handler for selecting a photo
     async void SelectPhotoClicked(object sender, EventArgs e)
     {
+        // Check if capturing photo is supported
         if (MediaPicker.Default.IsCaptureSupported)
         {
+            // Pick a photo from media library
             FileResult photo = await MediaPicker.Default.PickPhotoAsync();
 
+            // Check if photo is picked
             if (photo != null)
             {
                 try
                 {
                     byte[] imageBytes;
+                    // Read the selected photo into a byte array
                     using (Stream fileStream = await photo.OpenReadAsync())
                     {
                         using (MemoryStream memoryStream = new MemoryStream())
@@ -111,6 +119,7 @@ public partial class LeadFormPage : ContentPage
 
                     image = imageBytes;
 
+                    // Display the selected image on the page
                     ImageSource imageSource = ImageSource.FromStream(() =>
                     {
                         MemoryStream memoryStream = new MemoryStream(imageBytes);
@@ -129,6 +138,7 @@ public partial class LeadFormPage : ContentPage
 
     async void NextButtonClicked(object sender, EventArgs e)
     {
+        // Check if required fields are filled
         if (firstName.Text == null || lastName.Text == null)
         {
             await DisplayAlert("Required field not filled out", "Please enter your name.", "OK");
@@ -139,7 +149,10 @@ public partial class LeadFormPage : ContentPage
             await DisplayAlert("Required field not filled out", "Please enter the building you work in.", "OK");
             return;
         }
+
+        // Create a LeadForm object with the captured data
         LeadForm form = new LeadForm(firstName.Text, lastName.Text, building.Text, ClassBoards, ClassGarbage, ClassFloors, ClassDusting, ClassWindows, ClassWalls, HallFloors, HallGarbage, HallDusting, HallWalls, BathSinks, BathToilets, BathDusting, BathMirrors, BathLedges, BathDryers, BathVents, BathFloors, BathWalls, BathCurtains, BathShower, BathSupply, OfficeVacuum, StairFloors, StairRailings, StairWalls, EntrGlass, EntrFloors, EntrRugs, EntrDusting, remarks.Text);
+        // Navigate to the SubmittedFormsPage with the captured form data and image
         await Navigation.PushAsync(new SubmittedFormsPage(form, image));
     }
 }

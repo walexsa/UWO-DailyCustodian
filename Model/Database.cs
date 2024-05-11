@@ -15,6 +15,8 @@ namespace UWO_DailyCustodian.Model
     public class Database : IDatabase
     {
         private static Database _instance;
+
+        // Supabase URL and API key for database connection
         private string SupabaseUrl = "https://qhaomokzlbyayepdehvy.supabase.co";
         private string ApiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFoYW9tb2t6bGJ5YXllcGRlaHZ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDgyMDE3MzUsImV4cCI6MjAyMzc3NzczNX0.U8rh_R9musw71qqB9cId7uEosaiyZVcm9jqElnZUSag";
 
@@ -28,6 +30,9 @@ namespace UWO_DailyCustodian.Model
             Initialize();
         }
 
+        /**
+         * Initialize the Supabase client and set options for automatic token refresh and realtime updates
+         */
         async void Initialize()
         {
             var options = new SupabaseOptions
@@ -36,8 +41,8 @@ namespace UWO_DailyCustodian.Model
                 AutoConnectRealtime = true
             };
             supabase = new Supabase.Client(SupabaseUrl, ApiKey, options);
-            await supabase.InitializeAsync();
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            await supabase.InitializeAsync(); // Connect to Supabase
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Set license context for ExcelPackage
         }
 
         public static IDatabase Instance
@@ -55,6 +60,9 @@ namespace UWO_DailyCustodian.Model
             }
         }
 
+        /**
+         * Method to retrieve all custodian forms from the database
+         */
         public async Task<ObservableCollection<CustodianForm>> SelectAllCustodianForms()
         {
             custodianForms.Clear();
@@ -62,6 +70,9 @@ namespace UWO_DailyCustodian.Model
             custodianForms = new ObservableCollection<CustodianForm>(result.Models);
             return custodianForms;
         }
+        /**
+         * Method to retrieve all lead forms from the database
+         */
         public async Task<ObservableCollection<LeadForm>> SelectAllLeadForms()
         {
             leadForms.Clear();
@@ -70,24 +81,39 @@ namespace UWO_DailyCustodian.Model
             return leadForms;
         }
 
+        /**
+         * Method to retrieve the role associated with a given email from the database
+         */
         public async Task<string> GetRole(string email)
         {
             var result = await supabase.From<UserEmail>().Where(x => x.Email == email).Get();
+
+            // Check if no result is returned
             if (result == null)
             {
                 return null;
             }
+
             UserEmail userEmail = result.Model;
+
+            // Check if user information is available
             if (userEmail == null)
             {
                 return null;
             }
+
+            // Return the role associated with the user
             return userEmail.Role;
         }
+
+        /**
+         * Method to sign up a supabase user with the provided email and password
+         */
         public async Task<string> SignUp(string email, string password)
         {
             try
             {
+                // Attempt to sign up the user using Supabase authentication
                 var session = await supabase.Auth.SignUp(email, password);
                 if (session == null)
                 {
@@ -98,11 +124,16 @@ namespace UWO_DailyCustodian.Model
             } 
             catch (GotrueException e)
             {
+                // Handle any exceptions that occur during sign-up
                 JObject errorJson = JObject.Parse(e.Message);
                 string errorMessage = errorJson["msg"].ToString();
                 return errorMessage;
             }
         }
+
+        /**
+         * Method to sign in a user with the provided email and password
+         */
         public async Task<bool> SignIn(string email, string password)
         {
             session = await supabase.Auth.SignIn(email, password);
@@ -115,6 +146,10 @@ namespace UWO_DailyCustodian.Model
 
             return true;
         }
+
+        /**
+         * Inserts a custodian form into the database
+         */
         public async Task<bool> InsertCustodianFormAsync(CustodianForm form)
         {
             try
@@ -125,12 +160,14 @@ namespace UWO_DailyCustodian.Model
                     return false;
                 }
 
+                // Add the current date to the custodian form
                 form.AddDate(form, DateTime.Now);
 
                 var response = await supabase
                     .From<CustodianForm>()
                     .Insert(form);
 
+                // Check the status code of the response
                 int statusCode = (int)response.ResponseMessage.StatusCode;
                 if (statusCode >= 400 && statusCode <= 599)
                 {
@@ -138,6 +175,7 @@ namespace UWO_DailyCustodian.Model
                     return false;
                 }
 
+                // Retrieve all custodian forms after successful insertion
                 await SelectAllCustodianForms();
 
                 return true;
@@ -148,6 +186,10 @@ namespace UWO_DailyCustodian.Model
                 return false;
             }
         }
+
+        /**
+         * Inserts a lead form into the database
+         */
         public async Task<int> InsertLeadFormAsync(LeadForm form)
         {
             try
@@ -171,11 +213,12 @@ namespace UWO_DailyCustodian.Model
                     return -1;
                 }
 
+                // Retrieve the ID of the inserted lead form
                 var id = response.Model.Id;
 
                 await SelectAllLeadForms();
 
-                return id;
+                return id; // Return the unique ID of the inserted lead form
             }
             catch (Exception e)
             {
@@ -183,6 +226,11 @@ namespace UWO_DailyCustodian.Model
                 return -1;
             }
         }
+
+        /**
+         * Insert a relation between lead and custodian forms into the database.
+         * Method is called when a lead selects which custodians work they are evaluating
+         */
         public async Task<bool> InsertFormRelation(int leadFormId, int custodianFormId)
         {
             try
@@ -213,6 +261,9 @@ namespace UWO_DailyCustodian.Model
             }
         }
 
+        /**
+         * Inserts a photo into the supabase bucket "photos"
+         */
         public async Task<bool> InsertPhoto(byte[] fileData, string filePath)
         {
             if (fileData != null)
@@ -223,13 +274,19 @@ namespace UWO_DailyCustodian.Model
             return true;
         }
 
+        /**
+         * Downloads an image from the supabase bucket "photos"
+         */
         public async Task<byte[]> DownloadImageFromSupabaseAsync(string filePath)
         {
             var response = await supabase.Storage.From("photos").Download(filePath, null);
 
-            return response;
+            return response; // Return a byte[] containing the downloaded image data
         }
 
+        /**
+         * Add or edit an employee's role in the database table "user_emails"
+         */
         public async Task<bool> AddEditEmployee(string email, string role)
         {
             try
@@ -240,10 +297,11 @@ namespace UWO_DailyCustodian.Model
                     return false;
                 }
 
-                // check if email exists in the table already and edit the row
+                // Check if the email exists in the table already
                 var result = await supabase.From<UserEmail>().Where(x => x.Email == email).Get();
                 if (result.Model != null)
                 {
+                    // Edit the role of the existing user
                     var response = await supabase.From<UserEmail>().Where(x => x.Email == email).Set(x => x.Role, role).Update();
 
                     int statusCode = (int)response.ResponseMessage.StatusCode;
@@ -255,6 +313,7 @@ namespace UWO_DailyCustodian.Model
                 }
                 else
                 {
+                    // Insert a new user with the provided email and role
                     var response = await supabase.From<UserEmail>().Insert(new UserEmail(email, role));
 
                     int statusCode = (int)response.ResponseMessage.StatusCode;
@@ -274,6 +333,9 @@ namespace UWO_DailyCustodian.Model
             }
         }
 
+        /**
+         * Removes an employee from the database table "user_emails"
+         */
         public async Task<bool> RemoveEmployee(string email)
         {
             try
@@ -283,13 +345,18 @@ namespace UWO_DailyCustodian.Model
                     Console.WriteLine("supabaseClient is null");
                     return false;
                 }
+
+                // Check if the email exists in the table
                 var account = await supabase.From<UserEmail>().Where(x => x.Email == email).Get();
                 if (account.Model == null)
                 {
                     Console.WriteLine("Email does not exist in table user_emails to delete.");
                     return false;
                 }
+
+                // Delete the user with the specified email
                 await supabase.From<UserEmail>().Where(x => x.Email == email).Delete();
+
                 return true;
             }
             catch (Exception e)
@@ -299,23 +366,34 @@ namespace UWO_DailyCustodian.Model
             }
         }
 
+        /**
+         * Delete lead forms and associated files from the database and storage
+         */
         public async Task DeleteLeadForms(List<LeadForm> forms)
         {
             foreach (var form in forms)
             {
                 int formId = form.Id;
+
+                // Delete form relations associated with the lead form
                 await supabase.From<FormRelation>().Where(x => x.LeadId == formId).Delete();
 
+                // Delete the lead form itself
                 await supabase.From<LeadForm>().Where(x => x.Id == formId).Delete();
 
+                // Remove the image file associated with the lead form from storage
                 string imageFilePath = $"{formId}.png";
                 await supabase.Storage.From("photos").Remove(imageFilePath);
 
+                // Remove the Excel file associated with the lead form from storage
                 string fileFilePath = form.LeadCustodianName + formId + ".xlsx";
                 await supabase.Storage.From("files").Remove(fileFilePath);
             }
         }
 
+        /**
+         * Creates and uploads an Excel document based on lead and custodian forms
+         */
         public async Task<string> CreateAndUploadExcelDocument(LeadForm leadForm, int leadFormId, List<CustodianForm> custodianForms, string imagePath)
         {
             using (var excelPackage = new ExcelPackage())
@@ -404,6 +482,8 @@ namespace UWO_DailyCustodian.Model
                 worksheet.Cells["B36"].Value = leadForm.EntrDusting;
                 worksheet.Cells["B37"].Value = leadForm.Remarks;
 
+
+                // Add photo to the Excel document if available
                 if (imagePath != null)
                 {
                     byte[] photoBytes = await DownloadImageFromSupabaseAsync(imagePath);
@@ -411,12 +491,13 @@ namespace UWO_DailyCustodian.Model
                     {
                         ExcelPicture picture = worksheet.Drawings.AddPicture("Photo", new MemoryStream(photoBytes));
 
-                        picture.From.Column = 1; // Column index 2 corresponds to cell "C"
-                        picture.From.Row = 41;    // Row index 1 corresponds to cell 2
+                        picture.From.Column = 1; // Column index (letters)
+                        picture.From.Row = 41;    // Row index
                         picture.SetSize(300, 300); // Optional: set the size of the photo in pixels
                     }
                 }
 
+                // Populate custodian forms data if available
                 if (custodianForms != null)
                 {
                     int columnIndex = 4;
@@ -464,6 +545,7 @@ namespace UWO_DailyCustodian.Model
                     }
                 }
 
+                // Add lead and custodian form rating scales to the bottom of the document
                 int descriptionRow = 39;
                 worksheet.Cells[$"A{descriptionRow}"].Value = "Lead Response Scale:";
                 worksheet.Cells[$"B{descriptionRow}"].Value = "0 = N/A";
@@ -476,17 +558,22 @@ namespace UWO_DailyCustodian.Model
                 worksheet.Cells[$"B{descriptionRow}"].Value = "TRUE = Cleaned";
                 worksheet.Cells[$"C{descriptionRow}"].Value = "FALSE = Not Cleaned";
 
+                // Adjust column width
                 worksheet.Cells.AutoFitColumns();
 
                 // Convert the Excel document to a byte array
                 byte[] excelFileBytes = excelPackage.GetAsByteArray();
 
+                // Upload the Excel document to Supabase storage
                 string fileName = leadForm.LeadCustodianName + leadFormId + ".xlsx";
                 var uploadResponse = await supabase.Storage.From("files").Upload(excelFileBytes, fileName);
                 return uploadResponse;
             }
         }
 
+        /**
+         * Get the urls to access and download a list of LeadForms from supabase storage
+         */
         public List<string> DownloadForms(List<LeadForm> forms)
         {
             List<string> urls = new List<string>();
