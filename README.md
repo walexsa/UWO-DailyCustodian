@@ -1,6 +1,7 @@
 The UWO Daily Custodian app is designed to digitalize the completion of daily tasks and operations
 for the custodial staff at the University of Wisconsin Oshkosh. The app provides various features
 tailored to different user roles, including custodians, leads, and supervisors.
+** Current only works on android, but should run on Apple in the future **
 
 How to use:
   1. Sign Up/Login: Users can sign up or log in to their accounts based on their roles (custodian, lead, or supervisor).

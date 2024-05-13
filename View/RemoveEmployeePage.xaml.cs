@@ -21,7 +21,7 @@ public partial class RemoveEmployeePage : ContentPage
         }
 
         // Ask for confirmation before removing the employee
-        bool response = await DisplayAlert("Are you sure you want to remove " + emailENT.Text + " from the employee list?", "", "Yes", "No, Go Back");
+        bool response = await DisplayAlert("", "Are you sure you want to remove " + emailENT.Text + " from the employee list?", "Yes", "No, Go Back");
 
         // If user confirms removal
         if (response)
