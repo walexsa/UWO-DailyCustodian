@@ -217,7 +217,7 @@
 
             <HorizontalStackLayout HorizontalOptions="Fill" Spacing="10">
                 <Label Text="Remarks: " HorizontalOptions="Start" />
-                <Entry x:Name="remarks"/>
+                <Editor x:Name="remarks" AutoSize="TextChanges" WidthRequest="250"/>
             </HorizontalStackLayout>
 
             <Button Text="Select Photo (optional)" Clicked="SelectPhotoClicked"/>
